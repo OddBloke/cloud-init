@@ -1,4 +1,4 @@
-cloud-init (0.7.9-242-gdc2bd79-0ubuntu1) UNRELEASED; urgency=medium
+cloud-init (0.7.9-242-gdc2bd79-0ubuntu1) artful; urgency=medium
 
   * New upstream snapshot.
     - network: add v2 passthrough and fix parsing v2 config with bonds/bridge
@@ -22,7 +22,7 @@ cloud-init (0.7.9-242-gdc2bd79-0ubuntu1) UNRELEASED; urgency=medium
       [Chad Smith]
     - makefile: fix ci-deps-ubuntu target [Chad Smith]
 
- -- Ryan Harper <ryan.harper@canonical.com>  Mon, 21 Aug 2017 13:13:41 -0500
+ -- Ryan Harper <ryan.harper@canonical.com>  Mon, 21 Aug 2017 13:16:07 -0500
 
 cloud-init (0.7.9-231-g80bf98b9-0ubuntu1) artful; urgency=medium
 
