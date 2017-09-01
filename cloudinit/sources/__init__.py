@@ -100,12 +100,12 @@ class DataSource(object):
             except TypeError as e:
                 LOG.warning('Error persisting instance-data.json: %s', str(e))
                 return return_value
-            util.write_file(json_file, content)
+            util.write_file(json_file, content, mode=0o600)
         return return_value
 
     def _get_data(self):
         raise NotImplementedError(
-            'Subclasses of DataSource must implement this method which '
+            'Subclasses of DataSource must implement _get_data which'
             ' sets self.metadata, vendordata_raw and userdata_raw.')
 
     def get_userdata(self, apply_filter=False):
