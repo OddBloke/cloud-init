@@ -22,7 +22,7 @@ class DataSourceBigstep(sources.DataSource):
         self.vendordata_raw = ""
         self.userdata_raw = ""
 
-    def get_data(self, apply_filter=False):
+    def _get_data(self, apply_filter=False):
         url = get_url_from_file()
         if url is None:
             return False

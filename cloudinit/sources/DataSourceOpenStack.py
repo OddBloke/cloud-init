@@ -96,7 +96,7 @@ class DataSourceOpenStack(openstack.SourceMixin, sources.DataSource):
         self.metadata_address = url2base.get(avail_url)
         return bool(avail_url)
 
-    def get_data(self):
+    def _get_data(self):
         try:
             if not self.wait_for_metadata_service():
                 return False

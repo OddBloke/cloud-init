@@ -16,7 +16,7 @@ class DataSourceNone(sources.DataSource):
         self.metadata = {}
         self.userdata_raw = ''
 
-    def get_data(self):
+    def _get_data(self):
         # If the datasource config has any provided 'fallback'
         # userdata or metadata, use it...
         if 'userdata_raw' in self.ds_cfg:

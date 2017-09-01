@@ -46,7 +46,7 @@ class DataSourceCloudSigma(sources.DataSource):
         LOG.warning("failed to query dmi data for system product name")
         return False
 
-    def get_data(self):
+    def _get_data(self):
         """
         Metadata is the whole server context and /meta/cloud-config is used
         as userdata.

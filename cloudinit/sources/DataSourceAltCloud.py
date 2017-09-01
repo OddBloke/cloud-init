@@ -112,7 +112,7 @@ class DataSourceAltCloud(sources.DataSource):
 
         return 'UNKNOWN'
 
-    def get_data(self):
+    def _get_data(self):
         '''
         Description:
             User Data is passed to the launching instance which

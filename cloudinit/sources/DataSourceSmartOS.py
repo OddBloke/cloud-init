@@ -211,7 +211,7 @@ class DataSourceSmartOS(sources.DataSource):
             os.rename('/'.join([svc_path, 'provisioning']),
                       '/'.join([svc_path, 'provision_success']))
 
-    def get_data(self):
+    def _get_data(self):
         self._init()
 
         md = {}

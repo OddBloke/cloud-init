@@ -117,7 +117,7 @@ class DataSourceCloudStack(sources.DataSource):
     def get_config_obj(self):
         return self.cfg
 
-    def get_data(self):
+    def _get_data(self):
         seed_ret = {}
         if util.read_optional_seed(seed_ret, base=(self.seed_dir + "/")):
             self.userdata_raw = seed_ret['user-data']

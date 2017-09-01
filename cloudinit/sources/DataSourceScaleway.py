@@ -184,7 +184,7 @@ class DataSourceScaleway(sources.DataSource):
         self.retries = int(self.ds_cfg.get('retries', DEF_MD_RETRIES))
         self.timeout = int(self.ds_cfg.get('timeout', DEF_MD_TIMEOUT))
 
-    def get_data(self):
+    def _get_data(self):
         if not on_scaleway():
             return False
 

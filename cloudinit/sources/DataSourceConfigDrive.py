@@ -50,7 +50,7 @@ class DataSourceConfigDrive(openstack.SourceMixin, sources.DataSource):
         mstr += "[source=%s]" % (self.source)
         return mstr
 
-    def get_data(self):
+    def _get_data(self):
         found = None
         md = {}
         results = {}

@@ -40,7 +40,7 @@ class DataSourceOpenNebula(sources.DataSource):
         root = sources.DataSource.__str__(self)
         return "%s [seed=%s][dsmode=%s]" % (root, self.seed, self.dsmode)
 
-    def get_data(self):
+    def _get_data(self):
         defaults = {"instance-id": DEFAULT_IID}
         results = None
         seed = None

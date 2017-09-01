@@ -10,6 +10,7 @@
 
 import abc
 import copy
+import json
 import os
 import six
 
@@ -32,6 +33,9 @@ VALID_DSMODES = [DSMODE_DISABLED, DSMODE_LOCAL, DSMODE_NETWORK]
 DEP_FILESYSTEM = "FILESYSTEM"
 DEP_NETWORK = "NETWORK"
 DS_PREFIX = 'DataSource'
+
+# Directory in which instance meta-data, user-data and vendor-data is written
+INSTANCE_JSON_FILE = 'instance-data.json'
 
 LOG = logging.getLogger(__name__)
 
@@ -77,6 +81,32 @@ class DataSource(object):
 
     def __str__(self):
         return type_utils.obj_name(self)
+
+    def get_data(self):
+        """Datasources implement _get_data to setup metadata and userdata_raw.
+
+        Minimally, the datasource should return a boolean True on success.
+        """
+        return_value = self._get_data()
+        json_file = os.path.join(self.paths.run_dir, INSTANCE_JSON_FILE)
+        if return_value:
+            instance_data = {
+                'meta-data': self.metadata,
+                'user-data': self.get_userdata_raw(),
+                'vendor-data': self.get_vendordata_raw()}
+            LOG.info('Persisting instance data JSON: %s', json_file)
+            try:
+                content = json.dumps(instance_data)
+            except TypeError as e:
+                LOG.warning('Error persisting instance-data.json: %s', str(e))
+                return return_value
+            util.write_file(json_file, content)
+        return return_value
+
+    def _get_data(self):
+        raise NotImplementedError(
+            'Subclasses of DataSource must implement this method which '
+            ' sets self.metadata, vendordata_raw and userdata_raw.')
 
     def get_userdata(self, apply_filter=False):
         if self.userdata is None:

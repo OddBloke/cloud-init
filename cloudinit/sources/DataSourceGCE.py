@@ -50,7 +50,7 @@ class DataSourceGCE(sources.DataSource):
             BUILTIN_DS_CONFIG])
         self.metadata_address = self.ds_cfg['metadata_url']
 
-    def get_data(self):
+    def _get_data(self):
         ret = util.log_time(
             LOG.debug, 'Crawl of GCE metadata service',
             read_md, kwargs={'address': self.metadata_address})

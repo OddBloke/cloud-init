@@ -60,7 +60,7 @@ class DataSourceOVF(sources.DataSource):
         root = sources.DataSource.__str__(self)
         return "%s [seed=%s]" % (root, self.seed)
 
-    def get_data(self):
+    def _get_data(self):
         found = []
         md = {}
         ud = ""

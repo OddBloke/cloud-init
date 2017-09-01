@@ -69,7 +69,7 @@ class DataSourceEc2(sources.DataSource):
         self.metadata_address = None
         self.seed_dir = os.path.join(paths.seed_dir, "ec2")
 
-    def get_data(self):
+    def _get_data(self):
         seed_ret = {}
         if util.read_optional_seed(seed_ret, base=(self.seed_dir + "/")):
             self.userdata_raw = seed_ret['user-data']

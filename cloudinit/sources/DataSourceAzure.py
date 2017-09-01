@@ -331,7 +331,7 @@ class DataSourceAzure(sources.DataSource):
         metadata['public-keys'] = key_value or pubkeys_from_crt_files(fp_files)
         return metadata
 
-    def get_data(self):
+    def _get_data(self):
         # azure removes/ejects the cdrom containing the ovf-env.xml
         # file on reboot.  So, in order to successfully reboot we
         # need to look in the datadir and consider that valid
