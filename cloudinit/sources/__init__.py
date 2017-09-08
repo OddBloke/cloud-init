@@ -10,7 +10,6 @@
 
 import abc
 import copy
-import json
 import os
 import six
 
@@ -96,7 +95,7 @@ class DataSource(object):
                 'vendor-data': self.get_vendordata_raw()}
             LOG.info('Persisting instance data JSON: %s', json_file)
             try:
-                content = json.dumps(instance_data)
+                content = util.json_dumps(instance_data)
             except TypeError as e:
                 LOG.warning('Error persisting instance-data.json: %s', str(e))
                 return return_value

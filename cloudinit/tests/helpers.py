@@ -337,12 +337,6 @@ def dir2dict(startdir, prefix=None):
     return flist
 
 
-def json_dumps(data):
-    # print data in nicely formatted json.
-    return json.dumps(data, indent=1, sort_keys=True,
-                      separators=(',', ': '))
-
-
 def wrap_and_call(prefix, mocks, func, *args, **kwargs):
     """
     call func(args, **kwargs) with mocks applied, then unapplies mocks

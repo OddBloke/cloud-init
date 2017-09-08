@@ -533,15 +533,6 @@ def multi_log(text, console=True, stderr=True,
             log.log(log_level, text)
 
 
-def load_json(text, root_types=(dict,)):
-    decoded = json.loads(decode_binary(text))
-    if not isinstance(decoded, tuple(root_types)):
-        expected_types = ", ".join([str(t) for t in root_types])
-        raise TypeError("(%s) root types expected, got %s instead"
-                        % (expected_types, type(decoded)))
-    return decoded
-
-
 def is_ipv4(instr):
     """determine if input string is a ipv4 address. return boolean."""
     toks = instr.split('.')
@@ -1454,7 +1445,23 @@ def ensure_dirs(dirlist, mode=0o755):
         ensure_dir(d, mode)
 
 
+def load_json(text, root_types=(dict,)):
+    decoded = json.loads(decode_binary(text))
+    if not isinstance(decoded, tuple(root_types)):
+        expected_types = ", ".join([str(t) for t in root_types])
+        raise TypeError("(%s) root types expected, got %s instead"
+                        % (expected_types, type(decoded)))
+    return decoded
+
+
+def json_dumps(data):
+    """Return data in nicely formatted json."""
+    return json.dumps(data, indent=1, sort_keys=True,
+                      separators=(',', ': '))
+
+
 def yaml_dumps(obj, explicit_start=True, explicit_end=True):
+    """Return data in nicely formatted yaml."""
     return yaml.safe_dump(obj,
                           line_break="\n",
                           indent=4,
