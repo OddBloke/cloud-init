@@ -1,6 +1,5 @@
 # This file is part of cloud-init. See LICENSE file for license information.
 
-import json
 import os
 import stat
 
@@ -110,7 +109,7 @@ class TestDataSource(CiTestCase):
             'meta-data': {'DataSourceTestSubclassNet': 'was here'},
             'user-data': 'userdata_raw',
             'vendor-data': 'vendordata_raw'}
-        self.assertEqual(expected, json.loads(content))
+        self.assertEqual(expected, util.load_json(content))
         file_stat = os.stat(json_file)
         self.assertEqual(0o600, stat.S_IMODE(file_stat.st_mode))
 
