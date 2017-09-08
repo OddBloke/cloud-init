@@ -1454,10 +1454,15 @@ def load_json(text, root_types=(dict,)):
     return decoded
 
 
+def json_serialize_default(_obj):
+    """Handler for types which aren't json serializable."""
+    return 'Warning: redacted unserializable type {0}'.format(type(_obj))
+
+
 def json_dumps(data):
     """Return data in nicely formatted json."""
     return json.dumps(data, indent=1, sort_keys=True,
-                      separators=(',', ': '))
+                      separators=(',', ': '), default=json_serialize_default)
 
 
 def yaml_dumps(obj, explicit_start=True, explicit_end=True):

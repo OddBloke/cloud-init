@@ -113,15 +113,21 @@ class TestDataSource(CiTestCase):
         file_stat = os.stat(json_file)
         self.assertEqual(0o600, stat.S_IMODE(file_stat.st_mode))
 
-    def test_get_data_log_warning_on_non_json_instance_data(self):
-        """get_data succeeds but warns on non-json serialization content."""
+    def test_get_data_handles_unserializable_content(self):
+        """get_data warns unserializable content in INSTANCE_JSON_FILE."""
         tmp = self.tmp_dir()
         datasource = DataSourceTestSubclassNet(
             self.sys_cfg, self.distro, Paths({'run_dir': tmp}),
-            custom_userdata=self.paths)
+            custom_userdata={'key1': 'val1', 'key2': {'key2.1': self.paths}})
         self.assertTrue(datasource.get_data())
         json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
-        self.assertFalse(os.path.exists(json_file))
-        self.assertIn(
-            'WARNING: Error persisting instance-data.json',
-            self.logs.getvalue())
+        content = util.load_file(json_file)
+        expected = {
+            'meta-data': {'DataSourceTestSubclassNet': 'was here'},
+            'user-data': {
+                'key1': 'val1',
+                'key2': {
+                    'key2.1': "Warning: redacted unserializable type <class"
+                              " 'cloudinit.helpers.Paths'>"}},
+            'vendor-data': 'vendordata_raw'}
+        self.assertEqual(expected, util.load_json(content))

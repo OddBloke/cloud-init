@@ -2,7 +2,6 @@
 
 import calendar
 from datetime import datetime
-import json
 import sys
 
 from cloudinit import util
