@@ -155,7 +155,7 @@ class TestDataSource(CiTestCase):
         self.assertTrue(datasource.get_data())
         json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
         content = util.load_file(json_file)
-        instance_json =  util.load_json(content)
+        instance_json = util.load_json(content)
         self.assertEqual(
             ['_datasource/user-data/key2/key2.1'],
             instance_json['base64-encoded-keys'])
