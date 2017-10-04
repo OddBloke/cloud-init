@@ -1457,7 +1457,7 @@ def load_json(text, root_types=(dict,)):
 def json_serialize_default(_obj):
     """Handler for types which aren't json serializable."""
     try:
-        return 'base64:{0}'.format(b64e(_obj))
+        return 'ci-b64:{0}'.format(b64e(_obj))
     except AttributeError:
         return 'Warning: redacted unserializable type {0}'.format(type(_obj))
 

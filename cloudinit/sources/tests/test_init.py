@@ -1,12 +1,13 @@
 # This file is part of cloud-init. See LICENSE file for license information.
 
 import os
+import six
 import stat
 
 from cloudinit.helpers import Paths
 from cloudinit.sources import (
     INSTANCE_JSON_FILE, DataSource)
-from cloudinit.tests.helpers import CiTestCase
+from cloudinit.tests.helpers import CiTestCase, skipIf
 from cloudinit.user_data import UserDataProcessor
 from cloudinit import util
 
@@ -146,8 +147,9 @@ class TestDataSource(CiTestCase):
         self.assertEqual(
             expected_userdata, instance_json['_datasource']['user-data'])
 
-    def test_get_data_handles_base64encoded_unserializable_content(self):
-        """get_data base64encodes anything it can."""
+    @skipIf(not six.PY3, "json serialization on <= py2.7 handles bytes")
+    def test_get_data_base64encodes_unserializable_bytes(self):
+        """On py3, get_data base64encodes any unserializable content."""
         tmp = self.tmp_dir()
         datasource = DataSourceTestSubclassNet(
             self.sys_cfg, self.distro, Paths({'run_dir': tmp}),
@@ -161,4 +163,20 @@ class TestDataSource(CiTestCase):
             instance_json['base64-encoded-keys'])
         self.assertEqual(
             {'key1': 'val1', 'key2': {'key2.1': 'EjM='}},
+            instance_json['_datasource']['user-data'])
+
+    @skipIf(not six.PY2, "json serialization on <= py2.7 handles bytes")
+    def test_get_data_handles_bytes_values(self):
+        """On py2 get_data handles bytes values without having to b64encode."""
+        tmp = self.tmp_dir()
+        datasource = DataSourceTestSubclassNet(
+            self.sys_cfg, self.distro, Paths({'run_dir': tmp}),
+            custom_userdata={'key1': 'val1', 'key2': {'key2.1': b'\x123'}})
+        self.assertTrue(datasource.get_data())
+        json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
+        content = util.load_file(json_file)
+        instance_json = util.load_json(content)
+        self.assertEqual([], instance_json['base64-encoded-keys'])
+        self.assertEqual(
+            {'key1': 'val1', 'key2': {'key2.1': '\x123'}},
             instance_json['_datasource']['user-data'])

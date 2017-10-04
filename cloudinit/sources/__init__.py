@@ -48,7 +48,7 @@ class DataSourceNotFoundException(Exception):
 
 
 def process_base64_metadata(metadata, key_path=''):
-    """Strip base64 prefix and return metadata with base64-encoded-keys set."""
+    """Strip ci-b64 prefix and return metadata with base64-encoded-keys set."""
     md_copy = copy.deepcopy(metadata)
     md_copy['base64-encoded-keys'] = []
     for key, val in metadata.items():
@@ -56,9 +56,9 @@ def process_base64_metadata(metadata, key_path=''):
             sub_key_path = key_path + '/' + key
         else:
             sub_key_path = key
-        if isinstance(val, str) and val.startswith('base64:'):
+        if isinstance(val, str) and val.startswith('ci-b64:'):
             md_copy['base64-encoded-keys'].append(sub_key_path)
-            md_copy[key] = val.replace('base64:', '')
+            md_copy[key] = val.replace('ci-b64:', '')
         if isinstance(val, dict):
             return_val = process_base64_metadata(val, sub_key_path)
             md_copy['base64-encoded-keys'].extend(
