@@ -39,6 +39,7 @@ class InvalidDataSourceTestSubclassNet(DataSource):
 
 
 class TestDataSource(CiTestCase):
+
     with_logs = True
 
     def setUp(self):
@@ -112,14 +113,15 @@ class TestDataSource(CiTestCase):
         json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
         content = util.load_file(json_file)
         expected = {
-            'availability-zone': None,
             'base64-encoded-keys': [],
-            'cloud-name': 'subclasscloudname',
-            'instance-id': 'iid-datasource',
-            'public-hostname': 'test-subclass-hostname',
-            'public-ipv4-address': None,
-            'public-ipv6-address': None,
-            'region': None,
+            'standard-v1': {
+                'availability-zone': None,
+                'cloud-name': 'subclasscloudname',
+                'instance-id': 'iid-datasource',
+                'public-hostname': 'test-subclass-hostname',
+                'public-ipv4-address': None,
+                'public-ipv6-address': None,
+                'region': None},
             '_datasource': {
                 'meta-data': {'local-hostname': 'test-subclass-hostname'},
                 'user-data': 'userdata_raw',

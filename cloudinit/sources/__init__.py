@@ -105,14 +105,14 @@ class DataSource(object):
 
     def _get_standardized_metadata(self):
         """Return a dictionary of standardized metadata keys."""
-        return {
+        return {'standard-v1': {
             'public-hostname': self.get_hostname(),
             'public-ipv4-address': self.metadata.get('public-ipv4'),
             'public-ipv6-address': self.metadata.get('ipv6-address'),
             'instance-id': self.get_instance_id(),
             'cloud-name': self.cloud_name,
             'region': self.region,
-            'availability-zone': self.metadata.get('availability_zone')}
+            'availability-zone': self.metadata.get('availability_zone')}}
 
     def get_data(self):
         """Datasources implement _get_data to setup metadata and userdata_raw.
