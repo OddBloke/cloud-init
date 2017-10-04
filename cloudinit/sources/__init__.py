@@ -10,6 +10,7 @@
 
 import abc
 import copy
+import json
 import os
 import six
 
@@ -33,8 +34,11 @@ DEP_FILESYSTEM = "FILESYSTEM"
 DEP_NETWORK = "NETWORK"
 DS_PREFIX = 'DataSource'
 
-# Directory in which instance meta-data, user-data and vendor-data is written
+# File in which instance meta-data, user-data and vendor-data is written
 INSTANCE_JSON_FILE = 'instance-data.json'
+
+# Key which can be provide a cloud's official product name to cloud-init
+METADATA_CLOUD_NAME_KEY = 'cloud-name'
 
 LOG = logging.getLogger(__name__)
 
@@ -43,11 +47,38 @@ class DataSourceNotFoundException(Exception):
     pass
 
 
+def process_base64_metadata(metadata, key_path=''):
+    """Strip base64 prefix and return metadata with base64-encoded-keys set."""
+    md_copy = copy.deepcopy(metadata)
+    md_copy['base64-encoded-keys'] = []
+    for key, val in metadata.items():
+        if key_path:
+            sub_key_path = key_path + '/' + key
+        else:
+            sub_key_path = key
+        if isinstance(val, str) and val.startswith('base64:'):
+            md_copy['base64-encoded-keys'].append(sub_key_path)
+            md_copy[key] = val.replace('base64:', '')
+        if isinstance(val, dict):
+            return_val = process_base64_metadata(val, sub_key_path)
+            md_copy['base64-encoded-keys'].extend(
+                return_val.pop('base64-encoded-keys'))
+            md_copy[key] = return_val
+    return md_copy
+
+
 @six.add_metaclass(abc.ABCMeta)
 class DataSource(object):
 
     dsmode = DSMODE_NETWORK
     default_locale = 'en_US.UTF-8'
+
+    # Datasource name needs to be set by subclasses to determine which
+    # cloud-config datasource key is loaded
+    dsname = '_undef'
+
+    # Cached cloud_name as determined by _get_cloud_name
+    _cloud_name = None
 
     def __init__(self, sys_cfg, distro, paths, ud_proc=None):
         self.sys_cfg = sys_cfg
@@ -59,17 +90,8 @@ class DataSource(object):
         self.vendordata = None
         self.vendordata_raw = None
 
-        # find the datasource config name.
-        # remove 'DataSource' from classname on front, and remove 'Net' on end.
-        # Both Foo and FooNet sources expect config in cfg['sources']['Foo']
-        name = type_utils.obj_name(self)
-        if name.startswith(DS_PREFIX):
-            name = name[len(DS_PREFIX):]
-        if name.endswith('Net'):
-            name = name[0:-3]
-
-        self.ds_cfg = util.get_cfg_by_path(self.sys_cfg,
-                                           ("datasource", name), {})
+        self.ds_cfg = util.get_cfg_by_path(
+            self.sys_cfg, ("datasource", self.dsname), {})
         if not self.ds_cfg:
             self.ds_cfg = {}
 
@@ -81,6 +103,17 @@ class DataSource(object):
     def __str__(self):
         return type_utils.obj_name(self)
 
+    def _get_standardized_metadata(self):
+        """Return a dictionary of standardized metadata keys."""
+        return {
+            'public-hostname': self.get_hostname(),
+            'public-ipv4-address': self.metadata.get('public-ipv4'),
+            'public-ipv6-address': self.metadata.get('ipv6-address'),
+            'instance-id': self.get_instance_id(),
+            'cloud-name': self.cloud_name,
+            'region': self.region,
+            'availability-zone': self.metadata.get('availability_zone')}
+
     def get_data(self):
         """Datasources implement _get_data to setup metadata and userdata_raw.
 
@@ -90,12 +123,18 @@ class DataSource(object):
         json_file = os.path.join(self.paths.run_dir, INSTANCE_JSON_FILE)
         if return_value:
             instance_data = {
-                'meta-data': self.metadata,
-                'user-data': self.get_userdata_raw(),
-                'vendor-data': self.get_vendordata_raw()}
-            LOG.info('Persisting instance data JSON: %s', json_file)
+                '_datasource': {
+                    'meta-data': self.metadata,
+                    'user-data': self.get_userdata_raw(),
+                    'vendor-data': self.get_vendordata_raw()}}
+            instance_data.update(
+                self._get_standardized_metadata())
             try:
+                # Process content base64encoding unserializable values
                 content = util.json_dumps(instance_data)
+                # Strip base64: prefix and return base64-encoded-keys
+                processed_data = process_base64_metadata(json.loads(content))
+                content = util.json_dumps(processed_data)
             except TypeError as e:
                 LOG.warning('Error persisting instance-data.json: %s', str(e))
                 return return_value
@@ -118,6 +157,34 @@ class DataSource(object):
         if self.vendordata is None:
             self.vendordata = self.ud_proc.process(self.get_vendordata_raw())
         return self.vendordata
+
+    @property
+    def cloud_name(self):
+        """Return lowercase cloud name as determined by the datasource.
+
+        Datasource can determine or define its own cloud product name in
+        metadata.
+        """
+        if self._cloud_name:
+            return self._cloud_name
+        if self.metadata and self.metadata.get(METADATA_CLOUD_NAME_KEY):
+            cloud_name = self.metadata.get(METADATA_CLOUD_NAME_KEY)
+            if isinstance(cloud_name, six.string_types):
+                self._cloud_name = cloud_name.lower()
+            LOG.debug(
+                'Ignoring metadata provided key %s: non-string type %s',
+                METADATA_CLOUD_NAME_KEY, type(cloud_name))
+        else:
+            self._cloud_name = self._get_cloud_name().lower()
+        return self._cloud_name
+
+    def _get_cloud_name(self):
+        """Return the datasource name as it frequently matches cloud name.
+
+        Should be overridden in subclasses which can run on multiple
+        cloud names, such as DatasourceEc2.
+        """
+        return self.dsname
 
     @property
     def launch_index(self):
@@ -445,5 +512,6 @@ def list_from_depends(depends, ds_list):
         if depset == set(deps):
             ret_list.append(cls)
     return ret_list
+
 
 # vi: ts=4 expandtab
