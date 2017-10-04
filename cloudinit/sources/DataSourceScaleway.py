@@ -169,6 +169,8 @@ def query_data_api(api_type, api_address, retries, timeout):
 
 class DataSourceScaleway(sources.DataSource):
 
+    dsname = "Scaleway"
+
     def __init__(self, sys_cfg, distro, paths):
         super(DataSourceScaleway, self).__init__(sys_cfg, distro, paths)
 

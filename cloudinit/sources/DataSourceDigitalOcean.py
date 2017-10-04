@@ -27,6 +27,9 @@ MD_USE_IPV4LL = True
 
 
 class DataSourceDigitalOcean(sources.DataSource):
+
+    dsname = 'DigitalOcean'
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.distro = distro

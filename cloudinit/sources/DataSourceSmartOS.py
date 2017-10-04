@@ -159,6 +159,9 @@ LEGACY_USER_D = "/var/db"
 
 
 class DataSourceSmartOS(sources.DataSource):
+
+    dsname = "Joyent"
+
     _unset = "_unset"
     smartos_type = _unset
     md_client = _unset

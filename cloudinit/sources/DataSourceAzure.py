@@ -247,6 +247,8 @@ def temporary_hostname(temp_hostname, cfg, hostname_command='hostname'):
 
 
 class DataSourceAzure(sources.DataSource):
+
+    dsname = 'Azure'
     _negotiated = False
 
     def __init__(self, sys_cfg, distro, paths):

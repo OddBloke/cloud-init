@@ -20,6 +20,9 @@ LOG = logging.getLogger(__name__)
 
 
 class DataSourceNoCloud(sources.DataSource):
+
+    dsname = "NoCloud"
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.seed = None

@@ -42,6 +42,9 @@ class GoogleMetadataFetcher(object):
 
 
 class DataSourceGCE(sources.DataSource):
+
+    dsname = 'GCE'
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.metadata = dict()

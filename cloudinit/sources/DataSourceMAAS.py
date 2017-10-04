@@ -39,6 +39,9 @@ class DataSourceMAAS(sources.DataSource):
       hostname
       vendor-data
     """
+
+    dsname = "MAAS"
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.base_url = None

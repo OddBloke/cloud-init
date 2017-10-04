@@ -31,6 +31,9 @@ CONTEXT_DISK_FILES = ["context.sh"]
 
 
 class DataSourceOpenNebula(sources.DataSource):
+
+    dsname = "OpenNebula"
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.seed = None

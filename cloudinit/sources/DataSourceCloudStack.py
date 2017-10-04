@@ -65,6 +65,9 @@ class CloudStackPasswordServerClient(object):
 
 
 class DataSourceCloudStack(sources.DataSource):
+
+    dsname = 'CloudStack'
+
     def __init__(self, sys_cfg, distro, paths):
         sources.DataSource.__init__(self, sys_cfg, distro, paths)
         self.seed_dir = os.path.join(paths.seed_dir, 'cs')

@@ -23,6 +23,9 @@ class DataSourceCloudSigma(sources.DataSource):
     For more information about CloudSigma's Server Context:
     http://cloudsigma-docs.readthedocs.org/en/latest/server_context.html
     """
+
+    dsname = 'CloudSigma'
+
     def __init__(self, sys_cfg, distro, paths):
         self.cepko = Cepko()
         self.ssh_public_key = ''

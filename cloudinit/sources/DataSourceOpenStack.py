@@ -24,6 +24,9 @@ DEFAULT_METADATA = {
 
 
 class DataSourceOpenStack(openstack.SourceMixin, sources.DataSource):
+
+    dsname = "OpenStack"
+
     def __init__(self, sys_cfg, distro, paths):
         super(DataSourceOpenStack, self).__init__(sys_cfg, distro, paths)
         self.metadata_address = None

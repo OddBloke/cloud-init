@@ -31,6 +31,7 @@ _unset = "_unset"
 
 
 class Platforms(object):
+    # TODO Rename and move to cloudinit.cloud.CloudNames
     ALIYUN = "AliYun"
     AWS = "AWS"
     BRIGHTBOX = "Brightbox"
@@ -45,6 +46,7 @@ class Platforms(object):
 
 class DataSourceEc2(sources.DataSource):
 
+    dsname = 'Ec2'
     # Default metadata urls that will be used if none are provided
     # They will be checked for 'resolveability' and some of the
     # following may be discarded if they do not resolve
@@ -65,9 +67,13 @@ class DataSourceEc2(sources.DataSource):
     get_network_metadata = False
 
     def __init__(self, sys_cfg, distro, paths):
-        sources.DataSource.__init__(self, sys_cfg, distro, paths)
+        super(DataSourceEc2, self).__init__(sys_cfg, distro, paths)
         self.metadata_address = None
         self.seed_dir = os.path.join(paths.seed_dir, "ec2")
+
+    def _get_cloud_name(self):
+        """Return the cloud name as identified during _get_data."""
+        return self.cloud_platform
 
     def _get_data(self):
         seed_ret = {}
@@ -270,7 +276,7 @@ class DataSourceEc2(sources.DataSource):
         return None
 
     @property
-    def cloud_platform(self):
+    def cloud_platform(self):  # TODO rename cloud_name
         if self._cloud_platform is None:
             self._cloud_platform = identify_platform()
         return self._cloud_platform
