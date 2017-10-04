@@ -138,6 +138,9 @@ class DataSource(object):
             except TypeError as e:
                 LOG.warning('Error persisting instance-data.json: %s', str(e))
                 return return_value
+            except UnicodeDecodeError as e:
+                LOG.warning('Error persisting instance-data.json: %s', str(e))
+                return return_value
             util.write_file(json_file, content, mode=0o600)
         return return_value
 

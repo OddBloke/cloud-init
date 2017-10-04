@@ -39,7 +39,6 @@ class InvalidDataSourceTestSubclassNet(DataSource):
 
 
 class TestDataSource(CiTestCase):
-    maxDiff = None
     with_logs = True
 
     def setUp(self):
@@ -180,3 +179,18 @@ class TestDataSource(CiTestCase):
         self.assertEqual(
             {'key1': 'val1', 'key2': {'key2.1': '\x123'}},
             instance_json['_datasource']['user-data'])
+
+    @skipIf(not six.PY2, "Only python2 hits UnicodeDecodeErrors on non-utf8")
+    def test_non_utf8_encoding_logs_warning(self):
+        """When non-utf-8 values exist in py2 instance-data is not written."""
+        tmp = self.tmp_dir()
+        datasource = DataSourceTestSubclassNet(
+            self.sys_cfg, self.distro, Paths({'run_dir': tmp}),
+            custom_userdata={'key1': 'val1', 'key2': {'key2.1': b'ab\xaadef'}})
+        self.assertTrue(datasource.get_data())
+        json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
+        self.assertFalse(os.path.exists(json_file))
+        self.assertIn(
+            "WARNING: Error persisting instance-data.json: 'utf8' codec can't"
+            " decode byte 0xaa in position 2: invalid start byte",
+            self.logs.getvalue())
