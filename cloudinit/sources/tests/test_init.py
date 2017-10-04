@@ -4,7 +4,8 @@ import os
 import stat
 
 from cloudinit.helpers import Paths
-from cloudinit.sources import INSTANCE_JSON_FILE, DataSource
+from cloudinit.sources import (
+    INSTANCE_JSON_FILE, DataSource)
 from cloudinit.tests.helpers import CiTestCase
 from cloudinit.user_data import UserDataProcessor
 from cloudinit import util
@@ -12,13 +13,18 @@ from cloudinit import util
 
 class DataSourceTestSubclassNet(DataSource):
 
+    dsname = 'MyTestSubclass'
+
     def __init__(self, sys_cfg, distro, paths, custom_userdata=None):
         super(DataSourceTestSubclassNet, self).__init__(
             sys_cfg, distro, paths)
         self._custom_userdata = custom_userdata
 
+    def _get_cloud_name(self):
+        return 'SubclassCloudName'
+
     def _get_data(self):
-        self.metadata = {'DataSourceTestSubclassNet': 'was here'}
+        self.metadata = {'local-hostname': 'test-subclass-hostname'}
         if self._custom_userdata:
             self.userdata_raw = self._custom_userdata
         else:
@@ -32,12 +38,12 @@ class InvalidDataSourceTestSubclassNet(DataSource):
 
 
 class TestDataSource(CiTestCase):
-
+    maxDiff = None
     with_logs = True
 
     def setUp(self):
         super(TestDataSource, self).setUp()
-        self.sys_cfg = {'datasource': {'': {'key1': False}}}
+        self.sys_cfg = {'datasource': {'_undef': {'key1': False}}}
         self.distro = 'distrotest'  # generally should be a Distro object
         self.paths = Paths({})
         self.datasource = DataSource(self.sys_cfg, self.distro, self.paths)
@@ -55,9 +61,9 @@ class TestDataSource(CiTestCase):
         self.assertEqual({'key1': False}, self.datasource.ds_cfg)
         self.assertIsInstance(self.datasource.ud_proc, UserDataProcessor)
 
-    def test_datasource_init_strips_classname_for_ds_cfg(self):
-        """Init strips DataSource prefix and Net suffix for ds_cfg."""
-        sys_cfg = {'datasource': {'TestSubclass': {'key2': False}}}
+    def test_datasource_init_gets_ds_cfg_using_dsname(self):
+        """Init uses DataSource.dsname for sourcing ds_cfg."""
+        sys_cfg = {'datasource': {'MyTestSubclass': {'key2': False}}}
         distro = 'distrotest'  # generally should be a Distro object
         paths = Paths({})
         datasource = DataSourceTestSubclassNet(sys_cfg, distro, paths)
@@ -92,7 +98,7 @@ class TestDataSource(CiTestCase):
             self.sys_cfg, self.distro, Paths({'run_dir': tmp}))
         self.assertTrue(datasource.get_data())
         self.assertEqual(
-            {'DataSourceTestSubclassNet': 'was here'},
+            {'local-hostname': 'test-subclass-hostname'},
             datasource.metadata)
         self.assertEqual('userdata_raw', datasource.userdata_raw)
         self.assertEqual('vendordata_raw', datasource.vendordata_raw)
@@ -106,14 +112,23 @@ class TestDataSource(CiTestCase):
         json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
         content = util.load_file(json_file)
         expected = {
-            'meta-data': {'DataSourceTestSubclassNet': 'was here'},
-            'user-data': 'userdata_raw',
-            'vendor-data': 'vendordata_raw'}
+            'availability-zone': None,
+            'base64-encoded-keys': [],
+            'cloud-name': 'subclasscloudname',
+            'instance-id': 'iid-datasource',
+            'public-hostname': 'test-subclass-hostname',
+            'public-ipv4-address': None,
+            'public-ipv6-address': None,
+            'region': None,
+            '_datasource': {
+                'meta-data': {'local-hostname': 'test-subclass-hostname'},
+                'user-data': 'userdata_raw',
+                'vendor-data': 'vendordata_raw'}}
         self.assertEqual(expected, util.load_json(content))
         file_stat = os.stat(json_file)
         self.assertEqual(0o600, stat.S_IMODE(file_stat.st_mode))
 
-    def test_get_data_handles_unserializable_content(self):
+    def test_get_data_handles_redacted_unserializable_content(self):
         """get_data warns unserializable content in INSTANCE_JSON_FILE."""
         tmp = self.tmp_dir()
         datasource = DataSourceTestSubclassNet(
@@ -122,12 +137,28 @@ class TestDataSource(CiTestCase):
         self.assertTrue(datasource.get_data())
         json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
         content = util.load_file(json_file)
-        expected = {
-            'meta-data': {'DataSourceTestSubclassNet': 'was here'},
-            'user-data': {
-                'key1': 'val1',
-                'key2': {
-                    'key2.1': "Warning: redacted unserializable type <class"
-                              " 'cloudinit.helpers.Paths'>"}},
-            'vendor-data': 'vendordata_raw'}
-        self.assertEqual(expected, util.load_json(content))
+        expected_userdata = {
+            'key1': 'val1',
+            'key2': {
+                'key2.1': "Warning: redacted unserializable type <class"
+                          " 'cloudinit.helpers.Paths'>"}}
+        instance_json = util.load_json(content)
+        self.assertEqual(
+            expected_userdata, instance_json['_datasource']['user-data'])
+
+    def test_get_data_handles_base64encoded_unserializable_content(self):
+        """get_data base64encodes anything it can."""
+        tmp = self.tmp_dir()
+        datasource = DataSourceTestSubclassNet(
+            self.sys_cfg, self.distro, Paths({'run_dir': tmp}),
+            custom_userdata={'key1': 'val1', 'key2': {'key2.1': b'\x123'}})
+        self.assertTrue(datasource.get_data())
+        json_file = self.tmp_path(INSTANCE_JSON_FILE, tmp)
+        content = util.load_file(json_file)
+        instance_json =  util.load_json(content)
+        self.assertEqual(
+            ['_datasource/user-data/key2/key2.1'],
+            instance_json['base64-encoded-keys'])
+        self.assertEqual(
+            {'key1': 'val1', 'key2': {'key2.1': 'EjM='}},
+            instance_json['_datasource']['user-data'])
