@@ -105,14 +105,14 @@ class DataSource(object):
 
     def _get_standardized_metadata(self):
         """Return a dictionary of standardized metadata keys."""
-        return {'standard-v1': {
-            'public-hostname': self.get_hostname(),
-            'public-ipv4-address': self.metadata.get('public-ipv4'),
-            'public-ipv6-address': self.metadata.get('ipv6-address'),
-            'instance-id': self.get_instance_id(),
-            'cloud-name': self.cloud_name,
+        return {'v1': {
+            'public_hostname': self.get_hostname(),
+            'public_ipv4_address': self.metadata.get('public-ipv4'),
+            'public_ipv6_address': self.metadata.get('ipv6-address'),
+            'instance_id': self.get_instance_id(),
+            'cloud_name': self.cloud_name,
             'region': self.region,
-            'availability-zone': self.metadata.get('availability_zone')}}
+            'availability_zone': self.metadata.get('availability_zone')}}
 
     def get_data(self):
         """Datasources implement _get_data to setup metadata and userdata_raw.
@@ -123,10 +123,10 @@ class DataSource(object):
         json_file = os.path.join(self.paths.run_dir, INSTANCE_JSON_FILE)
         if return_value:
             instance_data = {
-                '_datasource': {
-                    'meta-data': self.metadata,
-                    'user-data': self.get_userdata_raw(),
-                    'vendor-data': self.get_vendordata_raw()}}
+                'ds': {
+                    'meta_data': self.metadata,
+                    'user_data': self.get_userdata_raw(),
+                    'vendor_data': self.get_vendordata_raw()}}
             instance_data.update(
                 self._get_standardized_metadata())
             try:
