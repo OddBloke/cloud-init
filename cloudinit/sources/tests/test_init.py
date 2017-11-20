@@ -115,17 +115,17 @@ class TestDataSource(CiTestCase):
         expected = {
             'base64-encoded-keys': [],
             'v1': {
-                'availability_zone': None,
-                'cloud_name': 'subclasscloudname',
-                'instance_id': 'iid-datasource',
-                'public_hostname': 'test-subclass-hostname',
-                'public_ipv4_address': None,
-                'public_ipv6_address': None,
+                'availability-zone': None,
+                'cloud-name': 'subclasscloudname',
+                'instance-id': 'iid-datasource',
+                'public-hostname': 'test-subclass-hostname',
+                'public-ipv4-address': None,
+                'public-ipv6-address': None,
                 'region': None},
             'ds': {
-                'meta_data': {'local-hostname': 'test-subclass-hostname'},
-                'user_data': 'userdata_raw',
-                'vendor_data': 'vendordata_raw'}}
+                'meta-data': {'local-hostname': 'test-subclass-hostname'},
+                'user-data': 'userdata_raw',
+                'vendor-data': 'vendordata_raw'}}
         self.assertEqual(expected, util.load_json(content))
         file_stat = os.stat(json_file)
         self.assertEqual(0o600, stat.S_IMODE(file_stat.st_mode))
@@ -146,7 +146,7 @@ class TestDataSource(CiTestCase):
                           " 'cloudinit.helpers.Paths'>"}}
         instance_json = util.load_json(content)
         self.assertEqual(
-            expected_userdata, instance_json['ds']['user_data'])
+            expected_userdata, instance_json['ds']['user-data'])
 
     @skipIf(not six.PY3, "json serialization on <= py2.7 handles bytes")
     def test_get_data_base64encodes_unserializable_bytes(self):
@@ -160,11 +160,11 @@ class TestDataSource(CiTestCase):
         content = util.load_file(json_file)
         instance_json = util.load_json(content)
         self.assertEqual(
-            ['ds/user_data/key2/key2.1'],
+            ['ds/user-data/key2/key2.1'],
             instance_json['base64-encoded-keys'])
         self.assertEqual(
             {'key1': 'val1', 'key2': {'key2.1': 'EjM='}},
-            instance_json['ds']['user_data'])
+            instance_json['ds']['user-data'])
 
     @skipIf(not six.PY2, "json serialization on <= py2.7 handles bytes")
     def test_get_data_handles_bytes_values(self):
@@ -180,7 +180,7 @@ class TestDataSource(CiTestCase):
         self.assertEqual([], instance_json['base64-encoded-keys'])
         self.assertEqual(
             {'key1': 'val1', 'key2': {'key2.1': '\x123'}},
-            instance_json['ds']['user_data'])
+            instance_json['ds']['user-data'])
 
     @skipIf(not six.PY2, "Only python2 hits UnicodeDecodeErrors on non-utf8")
     def test_non_utf8_encoding_logs_warning(self):
