@@ -40,9 +40,14 @@ class JinjaTemplatePartHandler(handlers.Handler):
         if ctype in handlers.CONTENT_SIGNALS:
             return
         instance_data = {}
-        if os.path.exists(INSTANCE_JSON_FILE):
-            instance_data = load_json(load_file(INSTANCE_JSON_FILE))
-        instance_jinja_vars = InstanceDataJinjaDict(instance_data)
+        json_file_path = os.path.join(self.paths.run_dir, INSTANCE_JSON_FILE)
+        if os.path.exists(json_file_path):
+            instance_data = load_json(load_file(json_file_path))
+        else:
+           LOG.warning(
+               'Instance data not yet present at {0}'.format(json_file_path))
+        instance_jinja_vars = convert_jinja_instance_data(instance_data)
+        dd = convert_jinja_instance_data(instance_data)
         rendered_payload = render_string(payload, instance_jinja_vars)
         rendered_payload = rendered_payload.replace(JINJA_PREFIX + '\n', '')
         include_type = handlers.type_from_starts_with(rendered_payload)
@@ -62,44 +67,24 @@ class JinjaTemplatePartHandler(handlers.Handler):
                     include_type))
 
 
-def flatten_jinja_dict(d, prefix='', sep='.', replacements=()):
-    """Flatten dict, replacing hyphens with underscores for jinja templates."""
-    items = []
+def convert_jinja_instance_data(d, prefix='', sep='/', decode_paths=()):
+    """Process instance-data.json dict for use in jinja templates.
+
+    Replace hyphens with underscores for jinja templates and decode any
+    base64-encoded-keys.
+    """
+    result = {}
     for key, value in d.items():
-        key = key.replace('-', '_')
-        new_key = '{0}{1}{2}'.format(prefix, sep, key) if prefix else key
-        try:
-            items.extend(flatten_jinja_dict(value, new_key, sep=sep).items())
-        except AttributeError:
-            items.append((new_key, value))
-    return dict(items)
-
-
-class InstanceDataJinjaDict(dict):
-    '''Wrapper around instance-data.json to return jinja compatible content.
-
-    This class wraps the dict getitem to automatically convert hyphenated
-    key names to underscores and automatically decode b64 encoded data.
-    '''
-
-    flat_dict = None
-
-    def __init__(self, *args, **kwargs):
-        super(InstanceDataJinjaDict, self).__init__(*args, **kwargs)
-        orig_dict = args[0]
-        self.flat_dict = flatten_jinja_dict(orig_dict)
-
-    def __repr__(self):
-        return '{}({})'.format(type(self).__name__, dict.__repr__(self))
-
-    def keys(self):
-        return self.flat_dict.keys()
-
-    def __getitem__(self, key_path):
-        value = self.flat_dict.get(key_path)
-        if key_path in self.flat_dict['b64_keys']:
+        key_path = '{0}{1}{2}'.format(prefix, sep, key) if prefix else key
+        if key_path in decode_paths:
             value = b64d(value)
-        return value
+        key = key.replace('-', '_')
+        if isinstance(value, dict):
+            result[key] = convert_jinja_instance_data(
+                value, key_path, sep=sep, decode_paths=decode_paths)
+        else:
+            result[key] = value
+    return result
 
 
 # vi: ts=4 expandtab
