@@ -52,6 +52,7 @@ INCLUSION_TYPES_MAP = {
     '#cloud-boothook': 'text/cloud-boothook',
     '#cloud-config-archive': 'text/cloud-config-archive',
     '#cloud-config-jsonp': 'text/cloud-config-jsonp',
+    '## template: jinja': 'text/jinja2',
 }
 
 # Sorted longest first
