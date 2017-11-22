@@ -18,7 +18,7 @@ from cloudinit.sources import INSTANCE_JSON_FILE
 from cloudinit.templater import render_string
 from cloudinit.util import b64d, load_file, load_json
 
-from cloudinit.settings import (PER_ALWAYS)
+from cloudinit.settings import (PER_ALWAYS, PER_INSTANCE)
 
 LOG = logging.getLogger(__name__)
 JINJA_PREFIX = "## template: jinja"
@@ -30,6 +30,7 @@ class JinjaTemplatePartHandler(handlers.Handler):
         handlers.Handler.__init__(self, PER_ALWAYS, version=3)
         self.paths = paths
         self._kwargs = _kwargs
+        self.sub_handlers = {}
 
     def list_types(self):
         return [
@@ -37,7 +38,16 @@ class JinjaTemplatePartHandler(handlers.Handler):
         ]
 
     def handle_part(self, data, ctype, filename, payload, frequency, headers):
-        if ctype in handlers.CONTENT_SIGNALS:
+        if ctype == handlers.CONTENT_START:
+            return
+        if ctype == handlers.CONTENT_END:
+            for sub_handler in self.sub_handlers.values():
+                if sub_handler.handler_version == 2:
+                    sub_handler.handle_part(
+                        data, ctype, None, None, PER_INSTANCE)
+                elif sub_handler.handler_version == 3:
+                    sub_handler.handle_part(
+                        data, ctype, None, None, PER_INSTANCE, {})
             return
         instance_data = {}
         json_file_path = os.path.join(self.paths.run_dir, INSTANCE_JSON_FILE)
@@ -47,24 +57,33 @@ class JinjaTemplatePartHandler(handlers.Handler):
            LOG.warning(
                'Instance data not yet present at {0}'.format(json_file_path))
         instance_jinja_vars = convert_jinja_instance_data(instance_data)
-        dd = convert_jinja_instance_data(instance_data)
         rendered_payload = render_string(payload, instance_jinja_vars)
         rendered_payload = rendered_payload.replace(JINJA_PREFIX + '\n', '')
-        include_type = handlers.type_from_starts_with(rendered_payload)
+        subtype = handlers.type_from_starts_with(rendered_payload)
+        handler = self.sub_handlers.get(subtype)
         # Pass our rendered payload onto cloud-config of shellscript handlers
-        if include_type == 'text/cloud-config':
-            handler = CloudConfigPartHandler(self.paths, **self._kwargs)
-            handler.handle_part(data, ctype, filename, rendered_payload,
-                                frequency, headers)
-        elif include_type == 'text/x-shellscript':
-            handler = ShellScriptPartHandler(self.paths, **self._kwargs)
-            handler.handle_part(data, ctype, filename, rendered_payload,
-                                frequency)
+        if subtype == 'text/cloud-config':
+            if not handler:
+                self.sub_handlers[subtype] = CloudConfigPartHandler(
+                    self.paths, **self._kwargs)
+                handler = self.sub_handlers[subtype]
+                handler.handle_part(
+                    data, handlers.CONTENT_START, None, None, PER_INSTANCE, {})
+            handler.handle_part(
+                data, ctype, filename, rendered_payload, frequency, headers)
+        elif subtype == 'text/x-shellscript':
+            if not handler:
+                self.sub_handlers[subtype] = ShellScriptPartHandler(
+                    self.paths, **self._kwargs)
+                handler = self.sub_handlers[subtype]
+                handler.handle_part(data, handlers.CONTENT_START, None, None, PER_INSTANCE)
+            handler.handle_part(
+                data, ctype, filename, rendered_payload, frequency)
         else:
             raise RuntimeError(
                 'After processing jinja template, could not find supported'
                 ' sub-handler for type {0}'.format(
-                    include_type))
+                    subtype))
 
 
 def convert_jinja_instance_data(d, prefix='', sep='/', decode_paths=()):
