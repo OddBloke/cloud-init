@@ -14,13 +14,19 @@ import logging
 import os
 
 from cloudinit import util
+from cloudinit.distros.parsers.sys_conf import SysConf
 
 from . import get_devicelist
 from . import read_sys_net_safe
 
+_DRACUT_SYSCONFIG_DIR_PATH = (
+    "/run/initramfs/state/etc/sysconfig/network-scripts"
+)
 _OPEN_ISCSI_INTERFACE_FILE = "/run/initramfs/open-iscsi.interface"
 
 KERNEL_CMDLINE_NETWORK_CONFIG_DISABLED = "disabled"
+
+LOG = logging.getLogger(__name__)
 
 
 class InitramfsNetworkConfigSource(metaclass=abc.ABCMeta):
@@ -89,6 +95,88 @@ class KlibcNetworkConfigSource(InitramfsNetworkConfigSource):
         return config_from_klibc_net_cfg(
             files=self._files, mac_addrs=self._mac_addrs,
         )
+
+
+def config_entry_from_sysconfig_path(path):
+    # TODO: Rewrite this into a class that's less fitted to the one config we
+    # currently know about
+    parsed = SysConf(path)
+
+    bootproto = parsed.get('BOOTPROTO')
+    device_type = parsed.get('TYPE')
+    device = parsed.get('DEVICE')
+
+    if bootproto != 'dhcp':
+        if bootproto is None:
+            LOG.info('No BOOTPROTO found in %s; skipping.', path)
+        else:
+            LOG.info(
+                'Unhandled BOOTPROTO ("%s") found in %s; skipping.',
+                bootproto,
+                path
+            )
+        return None
+
+    if device_type != 'Ethernet':
+        if device_type is None:
+            LOG.info('No TYPE found in %s; skipping.', path)
+        else:
+            LOG.info(
+                'Unhandled TYPE ("%s") found in %s; skipping.',
+                device_type,
+                path
+            )
+        return None
+
+    if device is None:
+        LOG.info('No DEVICE found in %s; skipping.', path)
+        return None
+
+    subnet = {
+        # We won't get here unless BOOTPROTO is dhcp, and we don't
+        'type': 'dhcp',
+        # We don't want this interface to be taken down automatically
+        'control': 'manual',
+    }
+    return {
+        # We won't get here unless device_type is Ethernet
+        'type': 'physical',
+        'subnets': [subnet],
+        'name': device,
+    }
+
+
+def config_from_sysconfig_files(files):
+    """
+    Given a list of sysconfig paths, generate v1 network config.
+
+    (This is implemented in a separate function so that it can serve as the
+    basis of more complete sysconfig network configuration parsing in the
+    future.)
+    """
+    config = []
+    for config_file in files:
+        config_entry = config_entry_from_sysconfig_path(config_file)
+        if config_entry:
+            config.append(config_entry)
+    return {'version': 1, 'config': config}
+
+
+class DracutNetworkConfigSource(InitramfsNetworkConfigSource):
+
+    def __init__(self):
+        self._files = glob.glob(
+            os.path.join(_DRACUT_SYSCONFIG_DIR_PATH, 'ifcfg-*')
+        )
+
+    def is_applicable(self):
+        """Return whether this system has dracut initramfs config or not"""
+        # TODO: Equivalent of iSCSI check?
+        # TODO: ip=/ip6= in cmdline?
+        return bool(self._files)
+
+    def render_config(self):
+        return config_from_sysconfig_files(self._files)
 
 
 _INITRAMFS_CONFIG_SOURCES = [KlibcNetworkConfigSource]
