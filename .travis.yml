@@ -57,7 +57,7 @@ matrix:
                   sudo find /var/snap/lxd/common/lxd/images/ -name $latest_file* -print -exec cp {} "$TRAVIS_BUILD_DIR/lxd_images/" \;
           install:
             - git fetch --unshallow
-            - sudo apt-get install -y --install-recommends sbuild ubuntu-dev-tools fakeroot tox debhelper
+            - sudo apt-get install --quiet -y --install-recommends sbuild ubuntu-dev-tools fakeroot debhelper
             - pip install .
             - pip install tox
             # bionic has lxd from deb installed, remove it first to ensure
@@ -100,7 +100,7 @@ matrix:
                     sudo chown root /etc/schroot/chroot.d/sbuild-xenial-amd64
                     # And ensure it's up-to-date.
                     before_pkgs="$(sudo schroot -c source:xenial-amd64 -d / dpkg -l | sha256sum)"
-                    sudo schroot -c source:xenial-amd64 -d / -- sh -c "apt-get update && apt-get -qqy upgrade"
+                    sudo sbuild-update -udcar xenial
                     after_pkgs=$(sudo schroot -c source:xenial-amd64 -d / dpkg -l | sha256sum)
                     if [ "$before_pkgs" != "$after_pkgs" ]; then
                         needs_caching=true
@@ -138,7 +138,7 @@ matrix:
                   sudo find /var/snap/lxd/common/lxd/images/ -name $latest_file* -print -exec cp {} "$TRAVIS_BUILD_DIR/lxd_images/" \;
           install:
             - git fetch --unshallow
-            - sudo apt-get install -y --install-recommends sbuild ubuntu-dev-tools fakeroot tox debhelper
+            - sudo apt-get install --quiet -y --install-recommends sbuild ubuntu-dev-tools fakeroot debhelper
             - pip install .
             - pip install tox
             # bionic has lxd from deb installed, remove it first to ensure
@@ -181,7 +181,7 @@ matrix:
                     sudo chown root /etc/schroot/chroot.d/sbuild-xenial-amd64
                     # And ensure it's up-to-date.
                     before_pkgs="$(sudo schroot -c source:xenial-amd64 -d / dpkg -l | sha256sum)"
-                    sudo schroot -c source:xenial-amd64 -d / -- sh -c "apt-get update && apt-get -qqy upgrade"
+                    sudo schroot-update -udcar xenial
                     after_pkgs=$(sudo schroot -c source:xenial-amd64 -d / dpkg -l | sha256sum)
                     if [ "$before_pkgs" != "$after_pkgs" ]; then
                         needs_caching=true
