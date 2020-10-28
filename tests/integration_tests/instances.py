@@ -52,8 +52,8 @@ class IntegrationInstance:
     def push_file(self, local_path, remote_path):
         self.instance.push_file(local_path, remote_path)
 
-    def read_from_file(self, remote_path) -> str:
-        tmp_file = NamedTemporaryFile('r')
+    def read_from_file(self, remote_path, *, mode: str = "r") -> str:
+        tmp_file = NamedTemporaryFile(mode)
         self.pull_file(remote_path, tmp_file.name)
         with tmp_file as f:
             contents = f.read()
