@@ -1,4 +1,5 @@
 # This file is part of cloud-init. See LICENSE file for license information.
+import difflib
 import logging
 import os
 import pytest
@@ -168,3 +169,10 @@ def pytest_assertrepr_compare(op, left, right):
                 '"{}" not in cloud-init.log string; unexpectedly found on'
                 " these lines:".format(left)
             ] + found_lines
+    if op == "==" and isinstance(left, str) and isinstance(right, str):
+        left_lines = left.splitlines()
+        right_lines = right.splitlines()
+        if "PROTO" in left_lines[0] and "PROTO" in right_lines[0]:
+            return [
+                "Pickle representation has changed:"
+            ] + list(difflib.unified_diff(left_lines, right_lines))
