@@ -1,0 +1,1164 @@
+    0: \x80 PROTO      4
+    2: \x95 FRAME      7206
+   11: \x8c SHORT_BINUNICODE 'cloudinit.sources.DataSourceNoCloud'
+   48: \x94 MEMOIZE    (as 0)
+   49: \x8c SHORT_BINUNICODE 'DataSourceNoCloud'
+   68: \x94 MEMOIZE    (as 1)
+   69: \x93 STACK_GLOBAL
+   70: \x94 MEMOIZE    (as 2)
+   71: )    EMPTY_TUPLE
+   72: \x81 NEWOBJ
+   73: \x94 MEMOIZE    (as 3)
+   74: }    EMPTY_DICT
+   75: \x94 MEMOIZE    (as 4)
+   76: (    MARK
+   77: \x8c     SHORT_BINUNICODE 'sys_cfg'
+   86: \x94     MEMOIZE    (as 5)
+   87: }        EMPTY_DICT
+   88: \x94     MEMOIZE    (as 6)
+   89: (        MARK
+   90: \x8c         SHORT_BINUNICODE 'datasource_list'
+  107: \x94         MEMOIZE    (as 7)
+  108: ]            EMPTY_LIST
+  109: \x94         MEMOIZE    (as 8)
+  110: (            MARK
+  111: \x8c             SHORT_BINUNICODE 'NoCloud'
+  120: \x94             MEMOIZE    (as 9)
+  121: \x8c             SHORT_BINUNICODE 'None'
+  127: \x94             MEMOIZE    (as 10)
+  128: e                APPENDS    (MARK at 110)
+  129: \x8c         SHORT_BINUNICODE '_log'
+  135: \x94         MEMOIZE    (as 11)
+  136: ]            EMPTY_LIST
+  137: \x94         MEMOIZE    (as 12)
+  138: (            MARK
+  139: X                BINUNICODE '[loggers]\nkeys=root,cloudinit\n\n[handlers]\nkeys=consoleHandler,cloudLogHandler\n\n[formatters]\nkeys=simpleFormatter,arg0Formatter\n\n[logger_root]\nlevel=DEBUG\nhandlers=consoleHandler,cloudLogHandler\n\n[logger_cloudinit]\nlevel=DEBUG\nqualname=cloudinit\nhandlers=\npropagate=1\n\n[handler_consoleHandler]\nclass=StreamHandler\nlevel=WARNING\nformatter=arg0Formatter\nargs=(sys.stderr,)\n\n[formatter_arg0Formatter]\nformat=%(asctime)s - %(filename)s[%(levelname)s]: %(message)s\n\n[formatter_simpleFormatter]\nformat=[CLOUDINIT] %(filename)s[%(levelname)s]: %(message)s\n'
+  692: \x94             MEMOIZE    (as 13)
+  693: \x8c             SHORT_BINUNICODE "[handler_cloudLogHandler]\nclass=FileHandler\nlevel=DEBUG\nformatter=arg0Formatter\nargs=('/var/log/cloud-init.log', 'a', 'UTF-8')\n"
+  822: \x94             MEMOIZE    (as 14)
+  823: \x8c             SHORT_BINUNICODE '[handler_cloudLogHandler]\nclass=handlers.SysLogHandler\nlevel=DEBUG\nformatter=simpleFormatter\nargs=("/dev/log", handlers.SysLogHandler.LOG_USER)\n'
+  969: \x94             MEMOIZE    (as 15)
+  970: e                APPENDS    (MARK at 138)
+  971: \x8c         SHORT_BINUNICODE 'log_cfgs'
+  981: \x94         MEMOIZE    (as 16)
+  982: ]            EMPTY_LIST
+  983: \x94         MEMOIZE    (as 17)
+  984: ]            EMPTY_LIST
+  985: \x94         MEMOIZE    (as 18)
+  986: (            MARK
+  987: h                BINGET     13
+  989: h                BINGET     14
+  991: e                APPENDS    (MARK at 986)
+  992: a            APPEND
+  993: \x8c         SHORT_BINUNICODE 'output'
+ 1001: \x94         MEMOIZE    (as 19)
+ 1002: }            EMPTY_DICT
+ 1003: \x94         MEMOIZE    (as 20)
+ 1004: \x8c         SHORT_BINUNICODE 'all'
+ 1009: \x94         MEMOIZE    (as 21)
+ 1010: \x8c         SHORT_BINUNICODE '| tee -a /var/log/cloud-init-output.log'
+ 1051: \x94         MEMOIZE    (as 22)
+ 1052: s            SETITEM
+ 1053: \x8c         SHORT_BINUNICODE 'users'
+ 1060: \x94         MEMOIZE    (as 23)
+ 1061: ]            EMPTY_LIST
+ 1062: \x94         MEMOIZE    (as 24)
+ 1063: \x8c         SHORT_BINUNICODE 'default'
+ 1072: \x94         MEMOIZE    (as 25)
+ 1073: a            APPEND
+ 1074: \x8c         SHORT_BINUNICODE 'disable_root'
+ 1088: \x94         MEMOIZE    (as 26)
+ 1089: \x88         NEWTRUE
+ 1090: \x8c         SHORT_BINUNICODE 'preserve_hostname'
+ 1109: \x94         MEMOIZE    (as 27)
+ 1110: \x89         NEWFALSE
+ 1111: \x8c         SHORT_BINUNICODE 'cloud_init_modules'
+ 1131: \x94         MEMOIZE    (as 28)
+ 1132: ]            EMPTY_LIST
+ 1133: \x94         MEMOIZE    (as 29)
+ 1134: (            MARK
+ 1135: \x8c             SHORT_BINUNICODE 'migrator'
+ 1145: \x94             MEMOIZE    (as 30)
+ 1146: \x8c             SHORT_BINUNICODE 'seed_random'
+ 1159: \x94             MEMOIZE    (as 31)
+ 1160: \x8c             SHORT_BINUNICODE 'bootcmd'
+ 1169: \x94             MEMOIZE    (as 32)
+ 1170: \x8c             SHORT_BINUNICODE 'write-files'
+ 1183: \x94             MEMOIZE    (as 33)
+ 1184: \x8c             SHORT_BINUNICODE 'growpart'
+ 1194: \x94             MEMOIZE    (as 34)
+ 1195: \x8c             SHORT_BINUNICODE 'resizefs'
+ 1205: \x94             MEMOIZE    (as 35)
+ 1206: \x8c             SHORT_BINUNICODE 'disk_setup'
+ 1218: \x94             MEMOIZE    (as 36)
+ 1219: \x8c             SHORT_BINUNICODE 'mounts'
+ 1227: \x94             MEMOIZE    (as 37)
+ 1228: \x8c             SHORT_BINUNICODE 'set_hostname'
+ 1242: \x94             MEMOIZE    (as 38)
+ 1243: \x8c             SHORT_BINUNICODE 'update_hostname'
+ 1260: \x94             MEMOIZE    (as 39)
+ 1261: \x8c             SHORT_BINUNICODE 'update_etc_hosts'
+ 1279: \x94             MEMOIZE    (as 40)
+ 1280: \x8c             SHORT_BINUNICODE 'ca-certs'
+ 1290: \x94             MEMOIZE    (as 41)
+ 1291: \x8c             SHORT_BINUNICODE 'rsyslog'
+ 1300: \x94             MEMOIZE    (as 42)
+ 1301: \x8c             SHORT_BINUNICODE 'users-groups'
+ 1315: \x94             MEMOIZE    (as 43)
+ 1316: \x8c             SHORT_BINUNICODE 'ssh'
+ 1321: \x94             MEMOIZE    (as 44)
+ 1322: e                APPENDS    (MARK at 1134)
+ 1323: \x8c         SHORT_BINUNICODE 'cloud_config_modules'
+ 1345: \x94         MEMOIZE    (as 45)
+ 1346: ]            EMPTY_LIST
+ 1347: \x94         MEMOIZE    (as 46)
+ 1348: (            MARK
+ 1349: \x8c             SHORT_BINUNICODE 'emit_upstart'
+ 1363: \x94             MEMOIZE    (as 47)
+ 1364: \x8c             SHORT_BINUNICODE 'snap'
+ 1370: \x94             MEMOIZE    (as 48)
+ 1371: \x8c             SHORT_BINUNICODE 'ssh-import-id'
+ 1386: \x94             MEMOIZE    (as 49)
+ 1387: \x8c             SHORT_BINUNICODE 'locale'
+ 1395: \x94             MEMOIZE    (as 50)
+ 1396: \x8c             SHORT_BINUNICODE 'set-passwords'
+ 1411: \x94             MEMOIZE    (as 51)
+ 1412: \x8c             SHORT_BINUNICODE 'grub-dpkg'
+ 1423: \x94             MEMOIZE    (as 52)
+ 1424: \x8c             SHORT_BINUNICODE 'apt-pipelining'
+ 1440: \x94             MEMOIZE    (as 53)
+ 1441: \x8c             SHORT_BINUNICODE 'apt-configure'
+ 1456: \x94             MEMOIZE    (as 54)
+ 1457: \x8c             SHORT_BINUNICODE 'ubuntu-advantage'
+ 1475: \x94             MEMOIZE    (as 55)
+ 1476: \x8c             SHORT_BINUNICODE 'ntp'
+ 1481: \x94             MEMOIZE    (as 56)
+ 1482: \x8c             SHORT_BINUNICODE 'timezone'
+ 1492: \x94             MEMOIZE    (as 57)
+ 1493: \x8c             SHORT_BINUNICODE 'disable-ec2-metadata'
+ 1515: \x94             MEMOIZE    (as 58)
+ 1516: \x8c             SHORT_BINUNICODE 'runcmd'
+ 1524: \x94             MEMOIZE    (as 59)
+ 1525: \x8c             SHORT_BINUNICODE 'byobu'
+ 1532: \x94             MEMOIZE    (as 60)
+ 1533: e                APPENDS    (MARK at 1348)
+ 1534: \x8c         SHORT_BINUNICODE 'cloud_final_modules'
+ 1555: \x94         MEMOIZE    (as 61)
+ 1556: ]            EMPTY_LIST
+ 1557: \x94         MEMOIZE    (as 62)
+ 1558: (            MARK
+ 1559: \x8c             SHORT_BINUNICODE 'package-update-upgrade-install'
+ 1591: \x94             MEMOIZE    (as 63)
+ 1592: \x8c             SHORT_BINUNICODE 'fan'
+ 1597: \x94             MEMOIZE    (as 64)
+ 1598: \x8c             SHORT_BINUNICODE 'landscape'
+ 1609: \x94             MEMOIZE    (as 65)
+ 1610: \x8c             SHORT_BINUNICODE 'lxd'
+ 1615: \x94             MEMOIZE    (as 66)
+ 1616: \x8c             SHORT_BINUNICODE 'ubuntu-drivers'
+ 1632: \x94             MEMOIZE    (as 67)
+ 1633: \x8c             SHORT_BINUNICODE 'puppet'
+ 1641: \x94             MEMOIZE    (as 68)
+ 1642: \x8c             SHORT_BINUNICODE 'chef'
+ 1648: \x94             MEMOIZE    (as 69)
+ 1649: \x8c             SHORT_BINUNICODE 'mcollective'
+ 1662: \x94             MEMOIZE    (as 70)
+ 1663: \x8c             SHORT_BINUNICODE 'salt-minion'
+ 1676: \x94             MEMOIZE    (as 71)
+ 1677: \x8c             SHORT_BINUNICODE 'rightscale_userdata'
+ 1698: \x94             MEMOIZE    (as 72)
+ 1699: \x8c             SHORT_BINUNICODE 'scripts-vendor'
+ 1715: \x94             MEMOIZE    (as 73)
+ 1716: \x8c             SHORT_BINUNICODE 'scripts-per-once'
+ 1734: \x94             MEMOIZE    (as 74)
+ 1735: \x8c             SHORT_BINUNICODE 'scripts-per-boot'
+ 1753: \x94             MEMOIZE    (as 75)
+ 1754: \x8c             SHORT_BINUNICODE 'scripts-per-instance'
+ 1776: \x94             MEMOIZE    (as 76)
+ 1777: \x8c             SHORT_BINUNICODE 'scripts-user'
+ 1791: \x94             MEMOIZE    (as 77)
+ 1792: \x8c             SHORT_BINUNICODE 'ssh-authkey-fingerprints'
+ 1818: \x94             MEMOIZE    (as 78)
+ 1819: \x8c             SHORT_BINUNICODE 'keys-to-console'
+ 1836: \x94             MEMOIZE    (as 79)
+ 1837: \x8c             SHORT_BINUNICODE 'phone-home'
+ 1849: \x94             MEMOIZE    (as 80)
+ 1850: \x8c             SHORT_BINUNICODE 'final-message'
+ 1865: \x94             MEMOIZE    (as 81)
+ 1866: \x8c             SHORT_BINUNICODE 'power-state-change'
+ 1886: \x94             MEMOIZE    (as 82)
+ 1887: e                APPENDS    (MARK at 1558)
+ 1888: \x8c         SHORT_BINUNICODE 'def_log_file'
+ 1902: \x94         MEMOIZE    (as 83)
+ 1903: \x8c         SHORT_BINUNICODE '/var/log/cloud-init.log'
+ 1928: \x94         MEMOIZE    (as 84)
+ 1929: \x8c         SHORT_BINUNICODE 'syslog_fix_perms'
+ 1947: \x94         MEMOIZE    (as 85)
+ 1948: ]            EMPTY_LIST
+ 1949: \x94         MEMOIZE    (as 86)
+ 1950: (            MARK
+ 1951: \x8c             SHORT_BINUNICODE 'syslog:adm'
+ 1963: \x94             MEMOIZE    (as 87)
+ 1964: \x8c             SHORT_BINUNICODE 'root:adm'
+ 1974: \x94             MEMOIZE    (as 88)
+ 1975: \x8c             SHORT_BINUNICODE 'root:wheel'
+ 1987: \x94             MEMOIZE    (as 89)
+ 1988: \x8c             SHORT_BINUNICODE 'root:root'
+ 1999: \x94             MEMOIZE    (as 90)
+ 2000: e                APPENDS    (MARK at 1950)
+ 2001: \x8c         SHORT_BINUNICODE 'vendor_data'
+ 2014: \x94         MEMOIZE    (as 91)
+ 2015: }            EMPTY_DICT
+ 2016: \x94         MEMOIZE    (as 92)
+ 2017: (            MARK
+ 2018: \x8c             SHORT_BINUNICODE 'enabled'
+ 2027: \x94             MEMOIZE    (as 93)
+ 2028: \x88             NEWTRUE
+ 2029: \x8c             SHORT_BINUNICODE 'prefix'
+ 2037: \x94             MEMOIZE    (as 94)
+ 2038: ]                EMPTY_LIST
+ 2039: \x94             MEMOIZE    (as 95)
+ 2040: u                SETITEMS   (MARK at 2017)
+ 2041: u            SETITEMS   (MARK at 89)
+ 2042: \x8c     SHORT_BINUNICODE 'distro'
+ 2050: \x94     MEMOIZE    (as 96)
+ 2051: \x8c     SHORT_BINUNICODE 'cloudinit.distros.ubuntu'
+ 2077: \x94     MEMOIZE    (as 97)
+ 2078: \x8c     SHORT_BINUNICODE 'Distro'
+ 2086: \x94     MEMOIZE    (as 98)
+ 2087: \x93     STACK_GLOBAL
+ 2088: \x94     MEMOIZE    (as 99)
+ 2089: )        EMPTY_TUPLE
+ 2090: \x81     NEWOBJ
+ 2091: \x94     MEMOIZE    (as 100)
+ 2092: }        EMPTY_DICT
+ 2093: \x94     MEMOIZE    (as 101)
+ 2094: (        MARK
+ 2095: \x8c         SHORT_BINUNICODE '_paths'
+ 2103: \x94         MEMOIZE    (as 102)
+ 2104: \x8c         SHORT_BINUNICODE 'cloudinit.helpers'
+ 2123: \x94         MEMOIZE    (as 103)
+ 2124: \x8c         SHORT_BINUNICODE 'Paths'
+ 2131: \x94         MEMOIZE    (as 104)
+ 2132: \x93         STACK_GLOBAL
+ 2133: \x94         MEMOIZE    (as 105)
+ 2134: )            EMPTY_TUPLE
+ 2135: \x81         NEWOBJ
+ 2136: \x94         MEMOIZE    (as 106)
+ 2137: }            EMPTY_DICT
+ 2138: \x94         MEMOIZE    (as 107)
+ 2139: (            MARK
+ 2140: \x8c             SHORT_BINUNICODE 'cfgs'
+ 2146: \x94             MEMOIZE    (as 108)
+ 2147: }                EMPTY_DICT
+ 2148: \x94             MEMOIZE    (as 109)
+ 2149: (                MARK
+ 2150: \x8c                 SHORT_BINUNICODE 'cloud_dir'
+ 2161: \x94                 MEMOIZE    (as 110)
+ 2162: \x8c                 SHORT_BINUNICODE '/var/lib/cloud/'
+ 2179: \x94                 MEMOIZE    (as 111)
+ 2180: \x8c                 SHORT_BINUNICODE 'templates_dir'
+ 2195: \x94                 MEMOIZE    (as 112)
+ 2196: \x8c                 SHORT_BINUNICODE '/etc/cloud/templates/'
+ 2219: \x94                 MEMOIZE    (as 113)
+ 2220: \x8c                 SHORT_BINUNICODE 'upstart_dir'
+ 2233: \x94                 MEMOIZE    (as 114)
+ 2234: \x8c                 SHORT_BINUNICODE '/etc/init/'
+ 2246: \x94                 MEMOIZE    (as 115)
+ 2247: u                    SETITEMS   (MARK at 2149)
+ 2248: \x8c             SHORT_BINUNICODE 'cloud_dir'
+ 2259: \x94             MEMOIZE    (as 116)
+ 2260: h                BINGET     111
+ 2262: \x8c             SHORT_BINUNICODE 'run_dir'
+ 2271: \x94             MEMOIZE    (as 117)
+ 2272: \x8c             SHORT_BINUNICODE '/run/cloud-init'
+ 2289: \x94             MEMOIZE    (as 118)
+ 2290: \x8c             SHORT_BINUNICODE 'instance_link'
+ 2305: \x94             MEMOIZE    (as 119)
+ 2306: \x8c             SHORT_BINUNICODE '/var/lib/cloud/instance'
+ 2331: \x94             MEMOIZE    (as 120)
+ 2332: \x8c             SHORT_BINUNICODE 'boot_finished'
+ 2347: \x94             MEMOIZE    (as 121)
+ 2348: \x8c             SHORT_BINUNICODE '/var/lib/cloud/instance/boot-finished'
+ 2387: \x94             MEMOIZE    (as 122)
+ 2388: \x8c             SHORT_BINUNICODE 'upstart_conf_d'
+ 2404: \x94             MEMOIZE    (as 123)
+ 2405: h                BINGET     115
+ 2407: \x8c             SHORT_BINUNICODE 'seed_dir'
+ 2417: \x94             MEMOIZE    (as 124)
+ 2418: \x8c             SHORT_BINUNICODE '/var/lib/cloud/seed'
+ 2439: \x94             MEMOIZE    (as 125)
+ 2440: \x8c             SHORT_BINUNICODE 'template_tpl'
+ 2454: \x94             MEMOIZE    (as 126)
+ 2455: \x8c             SHORT_BINUNICODE '/etc/cloud/templates/%s.tmpl'
+ 2485: \x94             MEMOIZE    (as 127)
+ 2486: \x8c             SHORT_BINUNICODE 'lookups'
+ 2495: \x94             MEMOIZE    (as 128)
+ 2496: }                EMPTY_DICT
+ 2497: \x94             MEMOIZE    (as 129)
+ 2498: (                MARK
+ 2499: \x8c                 SHORT_BINUNICODE 'handlers'
+ 2509: \x94                 MEMOIZE    (as 130)
+ 2510: h                    BINGET     130
+ 2512: \x8c                 SHORT_BINUNICODE 'scripts'
+ 2521: \x94                 MEMOIZE    (as 131)
+ 2522: h                    BINGET     131
+ 2524: \x8c                 SHORT_BINUNICODE 'vendor_scripts'
+ 2540: \x94                 MEMOIZE    (as 132)
+ 2541: \x8c                 SHORT_BINUNICODE 'scripts/vendor'
+ 2557: \x94                 MEMOIZE    (as 133)
+ 2558: \x8c                 SHORT_BINUNICODE 'sem'
+ 2563: \x94                 MEMOIZE    (as 134)
+ 2564: h                    BINGET     134
+ 2566: \x8c                 SHORT_BINUNICODE 'boothooks'
+ 2577: \x94                 MEMOIZE    (as 135)
+ 2578: h                    BINGET     135
+ 2580: \x8c                 SHORT_BINUNICODE 'userdata_raw'
+ 2594: \x94                 MEMOIZE    (as 136)
+ 2595: \x8c                 SHORT_BINUNICODE 'user-data.txt'
+ 2610: \x94                 MEMOIZE    (as 137)
+ 2611: \x8c                 SHORT_BINUNICODE 'userdata'
+ 2621: \x94                 MEMOIZE    (as 138)
+ 2622: \x8c                 SHORT_BINUNICODE 'user-data.txt.i'
+ 2639: \x94                 MEMOIZE    (as 139)
+ 2640: \x8c                 SHORT_BINUNICODE 'obj_pkl'
+ 2649: \x94                 MEMOIZE    (as 140)
+ 2650: \x8c                 SHORT_BINUNICODE 'obj.pkl'
+ 2659: \x94                 MEMOIZE    (as 141)
+ 2660: \x8c                 SHORT_BINUNICODE 'cloud_config'
+ 2674: \x94                 MEMOIZE    (as 142)
+ 2675: \x8c                 SHORT_BINUNICODE 'cloud-config.txt'
+ 2693: \x94                 MEMOIZE    (as 143)
+ 2694: \x8c                 SHORT_BINUNICODE 'vendor_cloud_config'
+ 2715: \x94                 MEMOIZE    (as 144)
+ 2716: \x8c                 SHORT_BINUNICODE 'vendor-cloud-config.txt'
+ 2741: \x94                 MEMOIZE    (as 145)
+ 2742: \x8c                 SHORT_BINUNICODE 'data'
+ 2748: \x94                 MEMOIZE    (as 146)
+ 2749: h                    BINGET     146
+ 2751: \x8c                 SHORT_BINUNICODE 'vendordata_raw'
+ 2767: \x94                 MEMOIZE    (as 147)
+ 2768: \x8c                 SHORT_BINUNICODE 'vendor-data.txt'
+ 2785: \x94                 MEMOIZE    (as 148)
+ 2786: \x8c                 SHORT_BINUNICODE 'vendordata'
+ 2798: \x94                 MEMOIZE    (as 149)
+ 2799: \x8c                 SHORT_BINUNICODE 'vendor-data.txt.i'
+ 2818: \x94                 MEMOIZE    (as 150)
+ 2819: \x8c                 SHORT_BINUNICODE 'instance_id'
+ 2832: \x94                 MEMOIZE    (as 151)
+ 2833: \x8c                 SHORT_BINUNICODE '.instance-id'
+ 2847: \x94                 MEMOIZE    (as 152)
+ 2848: \x8c                 SHORT_BINUNICODE 'manual_clean_marker'
+ 2869: \x94                 MEMOIZE    (as 153)
+ 2870: \x8c                 SHORT_BINUNICODE 'manual-clean'
+ 2884: \x94                 MEMOIZE    (as 154)
+ 2885: \x8c                 SHORT_BINUNICODE 'warnings'
+ 2895: \x94                 MEMOIZE    (as 155)
+ 2896: h                    BINGET     155
+ 2898: u                    SETITEMS   (MARK at 2498)
+ 2899: \x8c             SHORT_BINUNICODE 'datasource'
+ 2911: \x94             MEMOIZE    (as 156)
+ 2912: h                BINGET     3
+ 2914: u                SETITEMS   (MARK at 2139)
+ 2915: b            BUILD
+ 2916: \x8c         SHORT_BINUNICODE '_cfg'
+ 2922: \x94         MEMOIZE    (as 157)
+ 2923: }            EMPTY_DICT
+ 2924: \x94         MEMOIZE    (as 158)
+ 2925: (            MARK
+ 2926: \x8c             SHORT_BINUNICODE 'default_user'
+ 2940: \x94             MEMOIZE    (as 159)
+ 2941: }                EMPTY_DICT
+ 2942: \x94             MEMOIZE    (as 160)
+ 2943: (                MARK
+ 2944: \x8c                 SHORT_BINUNICODE 'name'
+ 2950: \x94                 MEMOIZE    (as 161)
+ 2951: \x8c                 SHORT_BINUNICODE 'ubuntu'
+ 2959: \x94                 MEMOIZE    (as 162)
+ 2960: \x8c                 SHORT_BINUNICODE 'lock_passwd'
+ 2973: \x94                 MEMOIZE    (as 163)
+ 2974: \x88                 NEWTRUE
+ 2975: \x8c                 SHORT_BINUNICODE 'gecos'
+ 2982: \x94                 MEMOIZE    (as 164)
+ 2983: \x8c                 SHORT_BINUNICODE 'Ubuntu'
+ 2991: \x94                 MEMOIZE    (as 165)
+ 2992: \x8c                 SHORT_BINUNICODE 'groups'
+ 3000: \x94                 MEMOIZE    (as 166)
+ 3001: ]                    EMPTY_LIST
+ 3002: \x94                 MEMOIZE    (as 167)
+ 3003: (                    MARK
+ 3004: \x8c                     SHORT_BINUNICODE 'adm'
+ 3009: \x94                     MEMOIZE    (as 168)
+ 3010: \x8c                     SHORT_BINUNICODE 'audio'
+ 3017: \x94                     MEMOIZE    (as 169)
+ 3018: \x8c                     SHORT_BINUNICODE 'cdrom'
+ 3025: \x94                     MEMOIZE    (as 170)
+ 3026: \x8c                     SHORT_BINUNICODE 'dialout'
+ 3035: \x94                     MEMOIZE    (as 171)
+ 3036: \x8c                     SHORT_BINUNICODE 'dip'
+ 3041: \x94                     MEMOIZE    (as 172)
+ 3042: \x8c                     SHORT_BINUNICODE 'floppy'
+ 3050: \x94                     MEMOIZE    (as 173)
+ 3051: \x8c                     SHORT_BINUNICODE 'lxd'
+ 3056: \x94                     MEMOIZE    (as 174)
+ 3057: \x8c                     SHORT_BINUNICODE 'netdev'
+ 3065: \x94                     MEMOIZE    (as 175)
+ 3066: \x8c                     SHORT_BINUNICODE 'plugdev'
+ 3075: \x94                     MEMOIZE    (as 176)
+ 3076: \x8c                     SHORT_BINUNICODE 'sudo'
+ 3082: \x94                     MEMOIZE    (as 177)
+ 3083: \x8c                     SHORT_BINUNICODE 'video'
+ 3090: \x94                     MEMOIZE    (as 178)
+ 3091: e                        APPENDS    (MARK at 3003)
+ 3092: \x8c                 SHORT_BINUNICODE 'sudo'
+ 3098: \x94                 MEMOIZE    (as 179)
+ 3099: ]                    EMPTY_LIST
+ 3100: \x94                 MEMOIZE    (as 180)
+ 3101: \x8c                 SHORT_BINUNICODE 'ALL=(ALL) NOPASSWD:ALL'
+ 3125: \x94                 MEMOIZE    (as 181)
+ 3126: a                    APPEND
+ 3127: \x8c                 SHORT_BINUNICODE 'shell'
+ 3134: \x94                 MEMOIZE    (as 182)
+ 3135: \x8c                 SHORT_BINUNICODE '/bin/bash'
+ 3146: \x94                 MEMOIZE    (as 183)
+ 3147: u                    SETITEMS   (MARK at 2943)
+ 3148: \x8c             SHORT_BINUNICODE 'network'
+ 3157: \x94             MEMOIZE    (as 184)
+ 3158: }                EMPTY_DICT
+ 3159: \x94             MEMOIZE    (as 185)
+ 3160: \x8c             SHORT_BINUNICODE 'renderers'
+ 3171: \x94             MEMOIZE    (as 186)
+ 3172: ]                EMPTY_LIST
+ 3173: \x94             MEMOIZE    (as 187)
+ 3174: (                MARK
+ 3175: \x8c                 SHORT_BINUNICODE 'netplan'
+ 3184: \x94                 MEMOIZE    (as 188)
+ 3185: \x8c                 SHORT_BINUNICODE 'eni'
+ 3190: \x94                 MEMOIZE    (as 189)
+ 3191: \x8c                 SHORT_BINUNICODE 'sysconfig'
+ 3202: \x94                 MEMOIZE    (as 190)
+ 3203: e                    APPENDS    (MARK at 3174)
+ 3204: s                SETITEM
+ 3205: \x8c             SHORT_BINUNICODE 'ntp_client'
+ 3217: \x94             MEMOIZE    (as 191)
+ 3218: \x8c             SHORT_BINUNICODE 'auto'
+ 3224: \x94             MEMOIZE    (as 192)
+ 3225: \x8c             SHORT_BINUNICODE 'paths'
+ 3232: \x94             MEMOIZE    (as 193)
+ 3233: }                EMPTY_DICT
+ 3234: \x94             MEMOIZE    (as 194)
+ 3235: (                MARK
+ 3236: h                    BINGET     110
+ 3238: h                    BINGET     111
+ 3240: h                    BINGET     112
+ 3242: h                    BINGET     113
+ 3244: h                    BINGET     114
+ 3246: h                    BINGET     115
+ 3248: u                    SETITEMS   (MARK at 3235)
+ 3249: \x8c             SHORT_BINUNICODE 'package_mirrors'
+ 3266: \x94             MEMOIZE    (as 195)
+ 3267: ]                EMPTY_LIST
+ 3268: \x94             MEMOIZE    (as 196)
+ 3269: (                MARK
+ 3270: }                    EMPTY_DICT
+ 3271: \x94                 MEMOIZE    (as 197)
+ 3272: (                    MARK
+ 3273: \x8c                     SHORT_BINUNICODE 'arches'
+ 3281: \x94                     MEMOIZE    (as 198)
+ 3282: ]                        EMPTY_LIST
+ 3283: \x94                     MEMOIZE    (as 199)
+ 3284: (                        MARK
+ 3285: \x8c                         SHORT_BINUNICODE 'i386'
+ 3291: \x94                         MEMOIZE    (as 200)
+ 3292: \x8c                         SHORT_BINUNICODE 'amd64'
+ 3299: \x94                         MEMOIZE    (as 201)
+ 3300: e                            APPENDS    (MARK at 3284)
+ 3301: \x8c                     SHORT_BINUNICODE 'failsafe'
+ 3311: \x94                     MEMOIZE    (as 202)
+ 3312: }                        EMPTY_DICT
+ 3313: \x94                     MEMOIZE    (as 203)
+ 3314: (                        MARK
+ 3315: \x8c                         SHORT_BINUNICODE 'primary'
+ 3324: \x94                         MEMOIZE    (as 204)
+ 3325: \x8c                         SHORT_BINUNICODE 'http://archive.ubuntu.com/ubuntu'
+ 3359: \x94                         MEMOIZE    (as 205)
+ 3360: \x8c                         SHORT_BINUNICODE 'security'
+ 3370: \x94                         MEMOIZE    (as 206)
+ 3371: \x8c                         SHORT_BINUNICODE 'http://security.ubuntu.com/ubuntu'
+ 3406: \x94                         MEMOIZE    (as 207)
+ 3407: u                            SETITEMS   (MARK at 3314)
+ 3408: \x8c                     SHORT_BINUNICODE 'search'
+ 3416: \x94                     MEMOIZE    (as 208)
+ 3417: }                        EMPTY_DICT
+ 3418: \x94                     MEMOIZE    (as 209)
+ 3419: (                        MARK
+ 3420: \x8c                         SHORT_BINUNICODE 'primary'
+ 3429: \x94                         MEMOIZE    (as 210)
+ 3430: ]                            EMPTY_LIST
+ 3431: \x94                         MEMOIZE    (as 211)
+ 3432: (                            MARK
+ 3433: \x8c                             SHORT_BINUNICODE 'http://%(ec2_region)s.ec2.archive.ubuntu.com/ubuntu/'
+ 3487: \x94                             MEMOIZE    (as 212)
+ 3488: \x8c                             SHORT_BINUNICODE 'http://%(availability_zone)s.clouds.archive.ubuntu.com/ubuntu/'
+ 3552: \x94                             MEMOIZE    (as 213)
+ 3553: \x8c                             SHORT_BINUNICODE 'http://%(region)s.clouds.archive.ubuntu.com/ubuntu/'
+ 3606: \x94                             MEMOIZE    (as 214)
+ 3607: e                                APPENDS    (MARK at 3432)
+ 3608: \x8c                         SHORT_BINUNICODE 'security'
+ 3618: \x94                         MEMOIZE    (as 215)
+ 3619: ]                            EMPTY_LIST
+ 3620: \x94                         MEMOIZE    (as 216)
+ 3621: u                            SETITEMS   (MARK at 3419)
+ 3622: u                        SETITEMS   (MARK at 3272)
+ 3623: }                    EMPTY_DICT
+ 3624: \x94                 MEMOIZE    (as 217)
+ 3625: (                    MARK
+ 3626: \x8c                     SHORT_BINUNICODE 'arches'
+ 3634: \x94                     MEMOIZE    (as 218)
+ 3635: ]                        EMPTY_LIST
+ 3636: \x94                     MEMOIZE    (as 219)
+ 3637: (                        MARK
+ 3638: \x8c                         SHORT_BINUNICODE 'arm64'
+ 3645: \x94                         MEMOIZE    (as 220)
+ 3646: \x8c                         SHORT_BINUNICODE 'armel'
+ 3653: \x94                         MEMOIZE    (as 221)
+ 3654: \x8c                         SHORT_BINUNICODE 'armhf'
+ 3661: \x94                         MEMOIZE    (as 222)
+ 3662: e                            APPENDS    (MARK at 3637)
+ 3663: \x8c                     SHORT_BINUNICODE 'failsafe'
+ 3673: \x94                     MEMOIZE    (as 223)
+ 3674: }                        EMPTY_DICT
+ 3675: \x94                     MEMOIZE    (as 224)
+ 3676: (                        MARK
+ 3677: \x8c                         SHORT_BINUNICODE 'primary'
+ 3686: \x94                         MEMOIZE    (as 225)
+ 3687: \x8c                         SHORT_BINUNICODE 'http://ports.ubuntu.com/ubuntu-ports'
+ 3725: \x94                         MEMOIZE    (as 226)
+ 3726: \x8c                         SHORT_BINUNICODE 'security'
+ 3736: \x94                         MEMOIZE    (as 227)
+ 3737: \x8c                         SHORT_BINUNICODE 'http://ports.ubuntu.com/ubuntu-ports'
+ 3775: \x94                         MEMOIZE    (as 228)
+ 3776: u                            SETITEMS   (MARK at 3676)
+ 3777: \x8c                     SHORT_BINUNICODE 'search'
+ 3785: \x94                     MEMOIZE    (as 229)
+ 3786: }                        EMPTY_DICT
+ 3787: \x94                     MEMOIZE    (as 230)
+ 3788: (                        MARK
+ 3789: \x8c                         SHORT_BINUNICODE 'primary'
+ 3798: \x94                         MEMOIZE    (as 231)
+ 3799: ]                            EMPTY_LIST
+ 3800: \x94                         MEMOIZE    (as 232)
+ 3801: (                            MARK
+ 3802: \x8c                             SHORT_BINUNICODE 'http://%(ec2_region)s.ec2.ports.ubuntu.com/ubuntu-ports/'
+ 3860: \x94                             MEMOIZE    (as 233)
+ 3861: \x8c                             SHORT_BINUNICODE 'http://%(availability_zone)s.clouds.ports.ubuntu.com/ubuntu-ports/'
+ 3929: \x94                             MEMOIZE    (as 234)
+ 3930: \x8c                             SHORT_BINUNICODE 'http://%(region)s.clouds.ports.ubuntu.com/ubuntu-ports/'
+ 3987: \x94                             MEMOIZE    (as 235)
+ 3988: e                                APPENDS    (MARK at 3801)
+ 3989: \x8c                         SHORT_BINUNICODE 'security'
+ 3999: \x94                         MEMOIZE    (as 236)
+ 4000: ]                            EMPTY_LIST
+ 4001: \x94                         MEMOIZE    (as 237)
+ 4002: u                            SETITEMS   (MARK at 3788)
+ 4003: u                        SETITEMS   (MARK at 3625)
+ 4004: }                    EMPTY_DICT
+ 4005: \x94                 MEMOIZE    (as 238)
+ 4006: (                    MARK
+ 4007: \x8c                     SHORT_BINUNICODE 'arches'
+ 4015: \x94                     MEMOIZE    (as 239)
+ 4016: ]                        EMPTY_LIST
+ 4017: \x94                     MEMOIZE    (as 240)
+ 4018: \x8c                     SHORT_BINUNICODE 'default'
+ 4027: \x94                     MEMOIZE    (as 241)
+ 4028: a                        APPEND
+ 4029: \x8c                     SHORT_BINUNICODE 'failsafe'
+ 4039: \x94                     MEMOIZE    (as 242)
+ 4040: }                        EMPTY_DICT
+ 4041: \x94                     MEMOIZE    (as 243)
+ 4042: (                        MARK
+ 4043: \x8c                         SHORT_BINUNICODE 'primary'
+ 4052: \x94                         MEMOIZE    (as 244)
+ 4053: \x8c                         SHORT_BINUNICODE 'http://ports.ubuntu.com/ubuntu-ports'
+ 4091: \x94                         MEMOIZE    (as 245)
+ 4092: \x8c                         SHORT_BINUNICODE 'security'
+ 4102: \x94                         MEMOIZE    (as 246)
+ 4103: \x8c                         SHORT_BINUNICODE 'http://ports.ubuntu.com/ubuntu-ports'
+ 4141: \x94                         MEMOIZE    (as 247)
+ 4142: u                            SETITEMS   (MARK at 4042)
+ 4143: u                        SETITEMS   (MARK at 4006)
+ 4144: e                    APPENDS    (MARK at 3269)
+ 4145: \x8c             SHORT_BINUNICODE 'ssh_svcname'
+ 4158: \x94             MEMOIZE    (as 248)
+ 4159: \x8c             SHORT_BINUNICODE 'ssh'
+ 4164: \x94             MEMOIZE    (as 249)
+ 4165: u                SETITEMS   (MARK at 2925)
+ 4166: \x8c         SHORT_BINUNICODE 'name'
+ 4172: \x94         MEMOIZE    (as 250)
+ 4173: \x8c         SHORT_BINUNICODE 'ubuntu'
+ 4181: \x94         MEMOIZE    (as 251)
+ 4182: \x8c         SHORT_BINUNICODE 'networking'
+ 4194: \x94         MEMOIZE    (as 252)
+ 4195: \x8c         SHORT_BINUNICODE 'cloudinit.distros.networking'
+ 4225: \x94         MEMOIZE    (as 253)
+ 4226: \x8c         SHORT_BINUNICODE 'LinuxNetworking'
+ 4243: \x94         MEMOIZE    (as 254)
+ 4244: \x93         STACK_GLOBAL
+ 4245: \x94         MEMOIZE    (as 255)
+ 4246: )            EMPTY_TUPLE
+ 4247: \x81         NEWOBJ
+ 4248: \x94         MEMOIZE    (as 256)
+ 4249: \x8c         SHORT_BINUNICODE '_runner'
+ 4258: \x94         MEMOIZE    (as 257)
+ 4259: h            BINGET     103
+ 4261: \x8c         SHORT_BINUNICODE 'Runners'
+ 4270: \x94         MEMOIZE    (as 258)
+ 4271: \x93         STACK_GLOBAL
+ 4272: \x94         MEMOIZE    (as 259)
+ 4273: )            EMPTY_TUPLE
+ 4274: \x81         NEWOBJ
+ 4275: \x94         MEMOIZE    (as 260)
+ 4276: }            EMPTY_DICT
+ 4277: \x94         MEMOIZE    (as 261)
+ 4278: (            MARK
+ 4279: \x8c             SHORT_BINUNICODE 'paths'
+ 4286: \x94             MEMOIZE    (as 262)
+ 4287: h                BINGET     106
+ 4289: \x8c             SHORT_BINUNICODE 'sems'
+ 4295: \x94             MEMOIZE    (as 263)
+ 4296: }                EMPTY_DICT
+ 4297: \x94             MEMOIZE    (as 264)
+ 4298: u                SETITEMS   (MARK at 4278)
+ 4299: b            BUILD
+ 4300: \x8c         SHORT_BINUNICODE 'osfamily'
+ 4310: \x94         MEMOIZE    (as 265)
+ 4311: \x8c         SHORT_BINUNICODE 'debian'
+ 4319: \x94         MEMOIZE    (as 266)
+ 4320: \x8c         SHORT_BINUNICODE 'default_locale'
+ 4336: \x94         MEMOIZE    (as 267)
+ 4337: \x8c         SHORT_BINUNICODE 'en_US.UTF-8'
+ 4350: \x94         MEMOIZE    (as 268)
+ 4351: \x8c         SHORT_BINUNICODE 'system_locale'
+ 4366: \x94         MEMOIZE    (as 269)
+ 4367: N            NONE
+ 4368: \x8c         SHORT_BINUNICODE 'network_conf_fn'
+ 4385: \x94         MEMOIZE    (as 270)
+ 4386: }            EMPTY_DICT
+ 4387: \x94         MEMOIZE    (as 271)
+ 4388: (            MARK
+ 4389: \x8c             SHORT_BINUNICODE 'eni'
+ 4394: \x94             MEMOIZE    (as 272)
+ 4395: \x8c             SHORT_BINUNICODE '/etc/network/interfaces.d/50-cloud-init.cfg'
+ 4440: \x94             MEMOIZE    (as 273)
+ 4441: \x8c             SHORT_BINUNICODE 'netplan'
+ 4450: \x94             MEMOIZE    (as 274)
+ 4451: \x8c             SHORT_BINUNICODE '/etc/netplan/50-cloud-init.yaml'
+ 4484: \x94             MEMOIZE    (as 275)
+ 4485: u                SETITEMS   (MARK at 4388)
+ 4486: \x8c         SHORT_BINUNICODE 'renderer_configs'
+ 4504: \x94         MEMOIZE    (as 276)
+ 4505: }            EMPTY_DICT
+ 4506: \x94         MEMOIZE    (as 277)
+ 4507: (            MARK
+ 4508: j                LONG_BINGET 272
+ 4513: }                EMPTY_DICT
+ 4514: \x94             MEMOIZE    (as 278)
+ 4515: (                MARK
+ 4516: \x8c                 SHORT_BINUNICODE 'eni_path'
+ 4526: \x94                 MEMOIZE    (as 279)
+ 4527: j                    LONG_BINGET 273
+ 4532: \x8c                 SHORT_BINUNICODE 'eni_header'
+ 4544: \x94                 MEMOIZE    (as 280)
+ 4545: X                    BINUNICODE "# This file is generated from information provided by the datasource.  Changes\n# to it will not persist across an instance reboot.  To disable cloud-init's\n# network configuration capabilities, write a file\n# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:\n# network: {config: disabled}\n"
+ 4862: \x94                 MEMOIZE    (as 281)
+ 4863: u                    SETITEMS   (MARK at 4515)
+ 4864: j                LONG_BINGET 274
+ 4869: }                EMPTY_DICT
+ 4870: \x94             MEMOIZE    (as 282)
+ 4871: (                MARK
+ 4872: \x8c                 SHORT_BINUNICODE 'netplan_path'
+ 4886: \x94                 MEMOIZE    (as 283)
+ 4887: j                    LONG_BINGET 275
+ 4892: \x8c                 SHORT_BINUNICODE 'netplan_header'
+ 4908: \x94                 MEMOIZE    (as 284)
+ 4909: j                    LONG_BINGET 281
+ 4914: \x8c                 SHORT_BINUNICODE 'postcmds'
+ 4924: \x94                 MEMOIZE    (as 285)
+ 4925: \x88                 NEWTRUE
+ 4926: u                    SETITEMS   (MARK at 4871)
+ 4927: u                SETITEMS   (MARK at 4507)
+ 4928: u            SETITEMS   (MARK at 2094)
+ 4929: b        BUILD
+ 4930: j        LONG_BINGET 262
+ 4935: h        BINGET     105
+ 4937: )        EMPTY_TUPLE
+ 4938: \x81     NEWOBJ
+ 4939: \x94     MEMOIZE    (as 286)
+ 4940: }        EMPTY_DICT
+ 4941: \x94     MEMOIZE    (as 287)
+ 4942: (        MARK
+ 4943: h            BINGET     108
+ 4945: }            EMPTY_DICT
+ 4946: \x94         MEMOIZE    (as 288)
+ 4947: (            MARK
+ 4948: \x8c             SHORT_BINUNICODE 'cloud_dir'
+ 4959: \x94             MEMOIZE    (as 289)
+ 4960: \x8c             SHORT_BINUNICODE '/var/lib/cloud/'
+ 4977: \x94             MEMOIZE    (as 290)
+ 4978: \x8c             SHORT_BINUNICODE 'templates_dir'
+ 4993: \x94             MEMOIZE    (as 291)
+ 4994: \x8c             SHORT_BINUNICODE '/etc/cloud/templates/'
+ 5017: \x94             MEMOIZE    (as 292)
+ 5018: \x8c             SHORT_BINUNICODE 'upstart_dir'
+ 5031: \x94             MEMOIZE    (as 293)
+ 5032: \x8c             SHORT_BINUNICODE '/etc/init/'
+ 5044: \x94             MEMOIZE    (as 294)
+ 5045: u                SETITEMS   (MARK at 4947)
+ 5046: h            BINGET     116
+ 5048: j            LONG_BINGET 290
+ 5053: h            BINGET     117
+ 5055: \x8c         SHORT_BINUNICODE '/run/cloud-init'
+ 5072: \x94         MEMOIZE    (as 295)
+ 5073: h            BINGET     119
+ 5075: \x8c         SHORT_BINUNICODE '/var/lib/cloud/instance'
+ 5100: \x94         MEMOIZE    (as 296)
+ 5101: h            BINGET     121
+ 5103: \x8c         SHORT_BINUNICODE '/var/lib/cloud/instance/boot-finished'
+ 5142: \x94         MEMOIZE    (as 297)
+ 5143: h            BINGET     123
+ 5145: j            LONG_BINGET 294
+ 5150: h            BINGET     124
+ 5152: \x8c         SHORT_BINUNICODE '/var/lib/cloud/seed'
+ 5173: \x94         MEMOIZE    (as 298)
+ 5174: h            BINGET     126
+ 5176: \x8c         SHORT_BINUNICODE '/etc/cloud/templates/%s.tmpl'
+ 5206: \x94         MEMOIZE    (as 299)
+ 5207: h            BINGET     128
+ 5209: }            EMPTY_DICT
+ 5210: \x94         MEMOIZE    (as 300)
+ 5211: (            MARK
+ 5212: \x8c             SHORT_BINUNICODE 'handlers'
+ 5222: \x94             MEMOIZE    (as 301)
+ 5223: j                LONG_BINGET 301
+ 5228: \x8c             SHORT_BINUNICODE 'scripts'
+ 5237: \x94             MEMOIZE    (as 302)
+ 5238: j                LONG_BINGET 302
+ 5243: \x8c             SHORT_BINUNICODE 'vendor_scripts'
+ 5259: \x94             MEMOIZE    (as 303)
+ 5260: \x8c             SHORT_BINUNICODE 'scripts/vendor'
+ 5276: \x94             MEMOIZE    (as 304)
+ 5277: \x8c             SHORT_BINUNICODE 'sem'
+ 5282: \x94             MEMOIZE    (as 305)
+ 5283: j                LONG_BINGET 305
+ 5288: \x8c             SHORT_BINUNICODE 'boothooks'
+ 5299: \x94             MEMOIZE    (as 306)
+ 5300: j                LONG_BINGET 306
+ 5305: \x8c             SHORT_BINUNICODE 'userdata_raw'
+ 5319: \x94             MEMOIZE    (as 307)
+ 5320: \x8c             SHORT_BINUNICODE 'user-data.txt'
+ 5335: \x94             MEMOIZE    (as 308)
+ 5336: \x8c             SHORT_BINUNICODE 'userdata'
+ 5346: \x94             MEMOIZE    (as 309)
+ 5347: \x8c             SHORT_BINUNICODE 'user-data.txt.i'
+ 5364: \x94             MEMOIZE    (as 310)
+ 5365: \x8c             SHORT_BINUNICODE 'obj_pkl'
+ 5374: \x94             MEMOIZE    (as 311)
+ 5375: \x8c             SHORT_BINUNICODE 'obj.pkl'
+ 5384: \x94             MEMOIZE    (as 312)
+ 5385: \x8c             SHORT_BINUNICODE 'cloud_config'
+ 5399: \x94             MEMOIZE    (as 313)
+ 5400: \x8c             SHORT_BINUNICODE 'cloud-config.txt'
+ 5418: \x94             MEMOIZE    (as 314)
+ 5419: \x8c             SHORT_BINUNICODE 'vendor_cloud_config'
+ 5440: \x94             MEMOIZE    (as 315)
+ 5441: \x8c             SHORT_BINUNICODE 'vendor-cloud-config.txt'
+ 5466: \x94             MEMOIZE    (as 316)
+ 5467: \x8c             SHORT_BINUNICODE 'data'
+ 5473: \x94             MEMOIZE    (as 317)
+ 5474: j                LONG_BINGET 317
+ 5479: \x8c             SHORT_BINUNICODE 'vendordata_raw'
+ 5495: \x94             MEMOIZE    (as 318)
+ 5496: \x8c             SHORT_BINUNICODE 'vendor-data.txt'
+ 5513: \x94             MEMOIZE    (as 319)
+ 5514: \x8c             SHORT_BINUNICODE 'vendordata'
+ 5526: \x94             MEMOIZE    (as 320)
+ 5527: \x8c             SHORT_BINUNICODE 'vendor-data.txt.i'
+ 5546: \x94             MEMOIZE    (as 321)
+ 5547: \x8c             SHORT_BINUNICODE 'instance_id'
+ 5560: \x94             MEMOIZE    (as 322)
+ 5561: \x8c             SHORT_BINUNICODE '.instance-id'
+ 5575: \x94             MEMOIZE    (as 323)
+ 5576: \x8c             SHORT_BINUNICODE 'manual_clean_marker'
+ 5597: \x94             MEMOIZE    (as 324)
+ 5598: \x8c             SHORT_BINUNICODE 'manual-clean'
+ 5612: \x94             MEMOIZE    (as 325)
+ 5613: \x8c             SHORT_BINUNICODE 'warnings'
+ 5623: \x94             MEMOIZE    (as 326)
+ 5624: j                LONG_BINGET 326
+ 5629: u                SETITEMS   (MARK at 5211)
+ 5630: h            BINGET     156
+ 5632: N            NONE
+ 5633: u            SETITEMS   (MARK at 4942)
+ 5634: b        BUILD
+ 5635: h        BINGET     138
+ 5637: \x8c     SHORT_BINUNICODE 'email.mime.multipart'
+ 5659: \x94     MEMOIZE    (as 327)
+ 5660: \x8c     SHORT_BINUNICODE 'MIMEMultipart'
+ 5675: \x94     MEMOIZE    (as 328)
+ 5676: \x93     STACK_GLOBAL
+ 5677: \x94     MEMOIZE    (as 329)
+ 5678: )        EMPTY_TUPLE
+ 5679: \x81     NEWOBJ
+ 5680: \x94     MEMOIZE    (as 330)
+ 5681: }        EMPTY_DICT
+ 5682: \x94     MEMOIZE    (as 331)
+ 5683: (        MARK
+ 5684: \x8c         SHORT_BINUNICODE 'policy'
+ 5692: \x94         MEMOIZE    (as 332)
+ 5693: \x8c         SHORT_BINUNICODE 'email._policybase'
+ 5712: \x94         MEMOIZE    (as 333)
+ 5713: \x8c         SHORT_BINUNICODE 'Compat32'
+ 5723: \x94         MEMOIZE    (as 334)
+ 5724: \x93         STACK_GLOBAL
+ 5725: \x94         MEMOIZE    (as 335)
+ 5726: )            EMPTY_TUPLE
+ 5727: \x81         NEWOBJ
+ 5728: \x94         MEMOIZE    (as 336)
+ 5729: \x8c         SHORT_BINUNICODE '_headers'
+ 5739: \x94         MEMOIZE    (as 337)
+ 5740: ]            EMPTY_LIST
+ 5741: \x94         MEMOIZE    (as 338)
+ 5742: (            MARK
+ 5743: \x8c             SHORT_BINUNICODE 'Content-Type'
+ 5757: \x94             MEMOIZE    (as 339)
+ 5758: \x8c             SHORT_BINUNICODE 'multipart/mixed; boundary="===============8319065031534080408=="'
+ 5824: \x94             MEMOIZE    (as 340)
+ 5825: \x86             TUPLE2
+ 5826: \x94             MEMOIZE    (as 341)
+ 5827: \x8c             SHORT_BINUNICODE 'MIME-Version'
+ 5841: \x94             MEMOIZE    (as 342)
+ 5842: \x8c             SHORT_BINUNICODE '1.0'
+ 5847: \x94             MEMOIZE    (as 343)
+ 5848: \x86             TUPLE2
+ 5849: \x94             MEMOIZE    (as 344)
+ 5850: \x8c             SHORT_BINUNICODE 'Number-Attachments'
+ 5870: \x94             MEMOIZE    (as 345)
+ 5871: \x8c             SHORT_BINUNICODE '1'
+ 5874: \x94             MEMOIZE    (as 346)
+ 5875: \x86             TUPLE2
+ 5876: \x94             MEMOIZE    (as 347)
+ 5877: e                APPENDS    (MARK at 5742)
+ 5878: \x8c         SHORT_BINUNICODE '_unixfrom'
+ 5889: \x94         MEMOIZE    (as 348)
+ 5890: N            NONE
+ 5891: \x8c         SHORT_BINUNICODE '_payload'
+ 5901: \x94         MEMOIZE    (as 349)
+ 5902: ]            EMPTY_LIST
+ 5903: \x94         MEMOIZE    (as 350)
+ 5904: \x8c         SHORT_BINUNICODE 'email.mime.base'
+ 5921: \x94         MEMOIZE    (as 351)
+ 5922: \x8c         SHORT_BINUNICODE 'MIMEBase'
+ 5932: \x94         MEMOIZE    (as 352)
+ 5933: \x93         STACK_GLOBAL
+ 5934: \x94         MEMOIZE    (as 353)
+ 5935: )            EMPTY_TUPLE
+ 5936: \x81         NEWOBJ
+ 5937: \x94         MEMOIZE    (as 354)
+ 5938: }            EMPTY_DICT
+ 5939: \x94         MEMOIZE    (as 355)
+ 5940: (            MARK
+ 5941: j                LONG_BINGET 332
+ 5946: j                LONG_BINGET 336
+ 5951: j                LONG_BINGET 337
+ 5956: ]                EMPTY_LIST
+ 5957: \x94             MEMOIZE    (as 356)
+ 5958: (                MARK
+ 5959: j                    LONG_BINGET 342
+ 5964: j                    LONG_BINGET 343
+ 5969: \x86                 TUPLE2
+ 5970: \x94                 MEMOIZE    (as 357)
+ 5971: \x8c                 SHORT_BINUNICODE 'Content-Type'
+ 5985: \x94                 MEMOIZE    (as 358)
+ 5986: \x8c                 SHORT_BINUNICODE 'text/cloud-config'
+ 6005: \x94                 MEMOIZE    (as 359)
+ 6006: \x86                 TUPLE2
+ 6007: \x94                 MEMOIZE    (as 360)
+ 6008: \x8c                 SHORT_BINUNICODE 'Content-Disposition'
+ 6029: \x94                 MEMOIZE    (as 361)
+ 6030: \x8c                 SHORT_BINUNICODE 'attachment; filename="part-001"'
+ 6063: \x94                 MEMOIZE    (as 362)
+ 6064: \x86                 TUPLE2
+ 6065: \x94                 MEMOIZE    (as 363)
+ 6066: e                    APPENDS    (MARK at 5958)
+ 6067: j                LONG_BINGET 348
+ 6072: N                NONE
+ 6073: j                LONG_BINGET 349
+ 6078: \x8c             SHORT_BINUNICODE '#cloud-config\n{}\n\n'
+ 6098: \x94             MEMOIZE    (as 364)
+ 6099: \x8c             SHORT_BINUNICODE '_charset'
+ 6109: \x94             MEMOIZE    (as 365)
+ 6110: N                NONE
+ 6111: \x8c             SHORT_BINUNICODE 'preamble'
+ 6121: \x94             MEMOIZE    (as 366)
+ 6122: N                NONE
+ 6123: \x8c             SHORT_BINUNICODE 'epilogue'
+ 6133: \x94             MEMOIZE    (as 367)
+ 6134: N                NONE
+ 6135: \x8c             SHORT_BINUNICODE 'defects'
+ 6144: \x94             MEMOIZE    (as 368)
+ 6145: ]                EMPTY_LIST
+ 6146: \x94             MEMOIZE    (as 369)
+ 6147: \x8c             SHORT_BINUNICODE '_default_type'
+ 6162: \x94             MEMOIZE    (as 370)
+ 6163: \x8c             SHORT_BINUNICODE 'text/plain'
+ 6175: \x94             MEMOIZE    (as 371)
+ 6176: u                SETITEMS   (MARK at 5940)
+ 6177: b            BUILD
+ 6178: a            APPEND
+ 6179: j            LONG_BINGET 365
+ 6184: N            NONE
+ 6185: j            LONG_BINGET 366
+ 6190: N            NONE
+ 6191: j            LONG_BINGET 367
+ 6196: N            NONE
+ 6197: j            LONG_BINGET 368
+ 6202: ]            EMPTY_LIST
+ 6203: \x94         MEMOIZE    (as 372)
+ 6204: j            LONG_BINGET 370
+ 6209: j            LONG_BINGET 371
+ 6214: u            SETITEMS   (MARK at 5683)
+ 6215: b        BUILD
+ 6216: \x8c     SHORT_BINUNICODE 'metadata'
+ 6226: \x94     MEMOIZE    (as 373)
+ 6227: }        EMPTY_DICT
+ 6228: \x94     MEMOIZE    (as 374)
+ 6229: (        MARK
+ 6230: \x8c         SHORT_BINUNICODE 'instance-id'
+ 6243: \x94         MEMOIZE    (as 375)
+ 6244: \x8c         SHORT_BINUNICODE 'pickle-check'
+ 6258: \x94         MEMOIZE    (as 376)
+ 6259: \x8c         SHORT_BINUNICODE 'local-hostname'
+ 6275: \x94         MEMOIZE    (as 377)
+ 6276: \x8c         SHORT_BINUNICODE 'pickle-check'
+ 6290: \x94         MEMOIZE    (as 378)
+ 6291: \x8c         SHORT_BINUNICODE 'dsmode'
+ 6299: \x94         MEMOIZE    (as 379)
+ 6300: \x8c         SHORT_BINUNICODE 'net'
+ 6305: \x94         MEMOIZE    (as 380)
+ 6306: u            SETITEMS   (MARK at 6229)
+ 6307: h        BINGET     136
+ 6309: C        SHORT_BINBYTES b'#cloud-config\n{}\n\n'
+ 6329: \x94     MEMOIZE    (as 381)
+ 6330: h        BINGET     149
+ 6332: j        LONG_BINGET 329
+ 6337: )        EMPTY_TUPLE
+ 6338: \x81     NEWOBJ
+ 6339: \x94     MEMOIZE    (as 382)
+ 6340: }        EMPTY_DICT
+ 6341: \x94     MEMOIZE    (as 383)
+ 6342: (        MARK
+ 6343: j            LONG_BINGET 332
+ 6348: j            LONG_BINGET 336
+ 6353: j            LONG_BINGET 337
+ 6358: ]            EMPTY_LIST
+ 6359: \x94         MEMOIZE    (as 384)
+ 6360: (            MARK
+ 6361: j                LONG_BINGET 339
+ 6366: \x8c             SHORT_BINUNICODE 'multipart/mixed; boundary="===============0667032836919995201=="'
+ 6432: \x94             MEMOIZE    (as 385)
+ 6433: \x86             TUPLE2
+ 6434: \x94             MEMOIZE    (as 386)
+ 6435: j                LONG_BINGET 342
+ 6440: j                LONG_BINGET 343
+ 6445: \x86             TUPLE2
+ 6446: \x94             MEMOIZE    (as 387)
+ 6447: j                LONG_BINGET 345
+ 6452: \x8c             SHORT_BINUNICODE '1'
+ 6455: \x94             MEMOIZE    (as 388)
+ 6456: \x86             TUPLE2
+ 6457: \x94             MEMOIZE    (as 389)
+ 6458: e                APPENDS    (MARK at 6360)
+ 6459: j            LONG_BINGET 348
+ 6464: N            NONE
+ 6465: j            LONG_BINGET 349
+ 6470: ]            EMPTY_LIST
+ 6471: \x94         MEMOIZE    (as 390)
+ 6472: j            LONG_BINGET 353
+ 6477: )            EMPTY_TUPLE
+ 6478: \x81         NEWOBJ
+ 6479: \x94         MEMOIZE    (as 391)
+ 6480: }            EMPTY_DICT
+ 6481: \x94         MEMOIZE    (as 392)
+ 6482: (            MARK
+ 6483: j                LONG_BINGET 332
+ 6488: j                LONG_BINGET 336
+ 6493: j                LONG_BINGET 337
+ 6498: ]                EMPTY_LIST
+ 6499: \x94             MEMOIZE    (as 393)
+ 6500: (                MARK
+ 6501: j                    LONG_BINGET 342
+ 6506: j                    LONG_BINGET 343
+ 6511: \x86                 TUPLE2
+ 6512: \x94                 MEMOIZE    (as 394)
+ 6513: j                    LONG_BINGET 358
+ 6518: j                    LONG_BINGET 359
+ 6523: \x86                 TUPLE2
+ 6524: \x94                 MEMOIZE    (as 395)
+ 6525: j                    LONG_BINGET 361
+ 6530: \x8c                 SHORT_BINUNICODE 'attachment; filename="part-001"'
+ 6563: \x94                 MEMOIZE    (as 396)
+ 6564: \x86                 TUPLE2
+ 6565: \x94                 MEMOIZE    (as 397)
+ 6566: e                    APPENDS    (MARK at 6500)
+ 6567: j                LONG_BINGET 348
+ 6572: N                NONE
+ 6573: j                LONG_BINGET 349
+ 6578: \x8c             SHORT_BINUNICODE '#cloud-config\n{}\n\n'
+ 6598: \x94             MEMOIZE    (as 398)
+ 6599: j                LONG_BINGET 365
+ 6604: N                NONE
+ 6605: j                LONG_BINGET 366
+ 6610: N                NONE
+ 6611: j                LONG_BINGET 367
+ 6616: N                NONE
+ 6617: j                LONG_BINGET 368
+ 6622: ]                EMPTY_LIST
+ 6623: \x94             MEMOIZE    (as 399)
+ 6624: j                LONG_BINGET 370
+ 6629: j                LONG_BINGET 371
+ 6634: u                SETITEMS   (MARK at 6482)
+ 6635: b            BUILD
+ 6636: a            APPEND
+ 6637: j            LONG_BINGET 365
+ 6642: N            NONE
+ 6643: j            LONG_BINGET 366
+ 6648: N            NONE
+ 6649: j            LONG_BINGET 367
+ 6654: N            NONE
+ 6655: j            LONG_BINGET 368
+ 6660: ]            EMPTY_LIST
+ 6661: \x94         MEMOIZE    (as 400)
+ 6662: j            LONG_BINGET 370
+ 6667: j            LONG_BINGET 371
+ 6672: u            SETITEMS   (MARK at 6342)
+ 6673: b        BUILD
+ 6674: h        BINGET     147
+ 6676: C        SHORT_BINBYTES b'#cloud-config\n{}\n\n'
+ 6696: \x94     MEMOIZE    (as 401)
+ 6697: \x8c     SHORT_BINUNICODE 'ds_cfg'
+ 6705: \x94     MEMOIZE    (as 402)
+ 6706: }        EMPTY_DICT
+ 6707: \x94     MEMOIZE    (as 403)
+ 6708: \x8c     SHORT_BINUNICODE 'ud_proc'
+ 6717: \x94     MEMOIZE    (as 404)
+ 6718: \x8c     SHORT_BINUNICODE 'cloudinit.user_data'
+ 6739: \x94     MEMOIZE    (as 405)
+ 6740: \x8c     SHORT_BINUNICODE 'UserDataProcessor'
+ 6759: \x94     MEMOIZE    (as 406)
+ 6760: \x93     STACK_GLOBAL
+ 6761: \x94     MEMOIZE    (as 407)
+ 6762: )        EMPTY_TUPLE
+ 6763: \x81     NEWOBJ
+ 6764: \x94     MEMOIZE    (as 408)
+ 6765: }        EMPTY_DICT
+ 6766: \x94     MEMOIZE    (as 409)
+ 6767: (        MARK
+ 6768: j            LONG_BINGET 262
+ 6773: j            LONG_BINGET 286
+ 6778: \x8c         SHORT_BINUNICODE 'ssl_details'
+ 6791: \x94         MEMOIZE    (as 410)
+ 6792: }            EMPTY_DICT
+ 6793: \x94         MEMOIZE    (as 411)
+ 6794: u            SETITEMS   (MARK at 6767)
+ 6795: b        BUILD
+ 6796: \x8c     SHORT_BINUNICODE 'seed'
+ 6802: \x94     MEMOIZE    (as 412)
+ 6803: \x8c     SHORT_BINUNICODE '/var/lib/cloud/seed/nocloud-net'
+ 6836: \x94     MEMOIZE    (as 413)
+ 6837: \x8c     SHORT_BINUNICODE 'seed_dirs'
+ 6848: \x94     MEMOIZE    (as 414)
+ 6849: ]        EMPTY_LIST
+ 6850: \x94     MEMOIZE    (as 415)
+ 6851: (        MARK
+ 6852: \x8c         SHORT_BINUNICODE '/var/lib/cloud/seed/nocloud'
+ 6881: \x94         MEMOIZE    (as 416)
+ 6882: j            LONG_BINGET 413
+ 6887: e            APPENDS    (MARK at 6851)
+ 6888: h        BINGET     124
+ 6890: N        NONE
+ 6891: \x8c     SHORT_BINUNICODE 'supported_seed_starts'
+ 6914: \x94     MEMOIZE    (as 417)
+ 6915: \x8c     SHORT_BINUNICODE '/'
+ 6918: \x94     MEMOIZE    (as 418)
+ 6919: \x8c     SHORT_BINUNICODE 'file://'
+ 6928: \x94     MEMOIZE    (as 419)
+ 6929: \x86     TUPLE2
+ 6930: \x94     MEMOIZE    (as 420)
+ 6931: \x8c     SHORT_BINUNICODE '_dirty_cache'
+ 6945: \x94     MEMOIZE    (as 421)
+ 6946: \x88     NEWTRUE
+ 6947: \x8c     SHORT_BINUNICODE 'dsmode'
+ 6955: \x94     MEMOIZE    (as 422)
+ 6956: j        LONG_BINGET 380
+ 6961: \x8c     SHORT_BINUNICODE '_network_config'
+ 6978: \x94     MEMOIZE    (as 423)
+ 6979: }        EMPTY_DICT
+ 6980: \x94     MEMOIZE    (as 424)
+ 6981: (        MARK
+ 6982: \x8c         SHORT_BINUNICODE 'version'
+ 6991: \x94         MEMOIZE    (as 425)
+ 6992: K            BININT1    1
+ 6994: \x8c         SHORT_BINUNICODE 'config'
+ 7002: \x94         MEMOIZE    (as 426)
+ 7003: ]            EMPTY_LIST
+ 7004: \x94         MEMOIZE    (as 427)
+ 7005: }            EMPTY_DICT
+ 7006: \x94         MEMOIZE    (as 428)
+ 7007: (            MARK
+ 7008: \x8c             SHORT_BINUNICODE 'type'
+ 7014: \x94             MEMOIZE    (as 429)
+ 7015: \x8c             SHORT_BINUNICODE 'physical'
+ 7025: \x94             MEMOIZE    (as 430)
+ 7026: \x8c             SHORT_BINUNICODE 'name'
+ 7032: \x94             MEMOIZE    (as 431)
+ 7033: \x8c             SHORT_BINUNICODE 'eth0'
+ 7039: \x94             MEMOIZE    (as 432)
+ 7040: \x8c             SHORT_BINUNICODE 'subnets'
+ 7049: \x94             MEMOIZE    (as 433)
+ 7050: ]                EMPTY_LIST
+ 7051: \x94             MEMOIZE    (as 434)
+ 7052: }                EMPTY_DICT
+ 7053: \x94             MEMOIZE    (as 435)
+ 7054: (                MARK
+ 7055: \x8c                 SHORT_BINUNICODE 'type'
+ 7061: \x94                 MEMOIZE    (as 436)
+ 7062: \x8c                 SHORT_BINUNICODE 'dhcp'
+ 7068: \x94                 MEMOIZE    (as 437)
+ 7069: \x8c                 SHORT_BINUNICODE 'control'
+ 7078: \x94                 MEMOIZE    (as 438)
+ 7079: \x8c                 SHORT_BINUNICODE 'auto'
+ 7085: \x94                 MEMOIZE    (as 439)
+ 7086: u                    SETITEMS   (MARK at 7054)
+ 7087: a                APPEND
+ 7088: u                SETITEMS   (MARK at 7007)
+ 7089: a            APPEND
+ 7090: u            SETITEMS   (MARK at 6981)
+ 7091: \x8c     SHORT_BINUNICODE '_network_eni'
+ 7105: \x94     MEMOIZE    (as 440)
+ 7106: N        NONE
+ 7107: \x8c     SHORT_BINUNICODE '_cloud_name'
+ 7120: \x94     MEMOIZE    (as 441)
+ 7121: \x8c     SHORT_BINUNICODE 'unknown'
+ 7130: \x94     MEMOIZE    (as 442)
+ 7131: \x8c     SHORT_BINUNICODE '_platform_type'
+ 7147: \x94     MEMOIZE    (as 443)
+ 7148: \x8c     SHORT_BINUNICODE 'lxd'
+ 7153: \x94     MEMOIZE    (as 444)
+ 7154: \x8c     SHORT_BINUNICODE '_subplatform'
+ 7168: \x94     MEMOIZE    (as 445)
+ 7169: \x8c     SHORT_BINUNICODE 'seed-dir (/var/lib/cloud/seed/nocloud-net)'
+ 7213: \x94     MEMOIZE    (as 446)
+ 7214: u        SETITEMS   (MARK at 76)
+ 7215: b    BUILD
+ 7216: .    STOP
+highest protocol among opcodes = 4
